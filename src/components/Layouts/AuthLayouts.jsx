@@ -1,7 +1,9 @@
+import Button from "../Elements/Button/Index"
 import FormLogin from "../Fragments/FormLogin"
+import FormRegist from "../Fragments/FormRegist"
 
 const AuthLayouts = (props) => {
-    const { tittle, text } = props
+    const { tittle, text, textButton1, textButton2, type } = props
     return (
         <div className="flex justify-center items-center h-full p-[30px]">
             <div
@@ -13,21 +15,12 @@ const AuthLayouts = (props) => {
                     <h2 className="text-center font-semibold text-[18px] lg:text-[32px]">{tittle}</h2>
                     <p className="text-center text-[12px] lg:text-[16px]">{text}</p>
                 </div>
-                {/* Login Form */}
-                <FormLogin />
+
+                {/* Form Login & Form Regist */}
+                {type === "login" ? <FormLogin /> : <FormRegist />}
 
                 {/* Button Masuk */}
-                <div className="grid gap-2">
-                    <a className="justify-center font-semibold py-[8px] lg:py-[14px] lg:px-[20px] text-center rounded-full bg-[#3D4142] border-[#3D4142] border-[1px] border-opacity-25 outline-none focus:border-opacity-60 hover:bg-opacity-50"
-                        href="/home">Masuk</a>
-                    <p className="text-center">atau</p>
-                    <div className="">
-                        <a className=" items-center py-[8px] lg:py-[14px] lg:px-[20px] rounded-full bg-transparent flex justify-center gap-4 border-white border-[1px] border-opacity-25 outline-none focus:border-opacity-60 hover:bg-[#3D4142]"
-                            href="#">
-                            <img className="w-[18px]" src="img/gmail.png" alt="" />
-                            Masuk dengan google</a>
-                    </div>
-                </div>
+                <Button tittle={textButton1} google={textButton2} href="/login" />
             </div>
         </div>
     )
