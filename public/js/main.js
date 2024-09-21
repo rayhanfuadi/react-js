@@ -1,6 +1,6 @@
 // Swiper JS
-const swiperEl = document.querySelector('swiper-container')
-Object.assign(swiperEl, {
+const SwiperEl = document.querySelector('swiper-container')
+Object.assign(SwiperEl, {
     slidesPerView: 1,
     spaceBetween: 10,
     pagination: {
@@ -21,7 +21,7 @@ Object.assign(swiperEl, {
         },
     },
 });
-swiperEl.initialize();
+SwiperEl.initialize();
 
 //pagedone JS untuk Top Rating
 const swiper = new Swiper(".multiple-slide-carousel", {
