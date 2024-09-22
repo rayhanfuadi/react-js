@@ -7,7 +7,7 @@ const InputPassword = (props) => {
                 <input className="bg-transparent p-0 outline-none focus:outline-none border-none" type="password"
                     placeholder="Masukan password" />
             </div>
-            <img src="img/eye-off.svg" alt="" />
+            <img className="mr-2 lg:mr-4 w-[20px]" src="img/eye-off.svg" alt="" />
         </div>
     )
 }
