@@ -1,3 +1,5 @@
+import MenuBar from "../Fragments/MenuBar"
+
 const Navbar = () => {
     return (
         <nav className="py-[12px] px-[20px] lg:px-[80px] lg:py-[24px] bg-[#181A1C]">
@@ -11,10 +13,7 @@ const Navbar = () => {
                     <a href="">Film</a>
                     <a href="">Daftar Saya</a>
                 </div>
-                <div className="flex items-center gap-2">
-                    <img className="w-[20px] h-[20px] lg:w-[40px] lg:h-[40px]" src="img/pengguna.png" alt="" />
-                    <img className="w-[12px] h-[12px] lg:w-[24px] lg:h-[24px]" src=" img/arrowDown.svg" alt="" />
-                </div>
+                <MenuBar />
             </div>
         </nav>
     )

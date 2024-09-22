@@ -29,7 +29,7 @@ const RilisBaru = () => {
                         <RilisCard justify="start" badge={<BadgeBiru />} img={7} />
                         <RilisCard img={8} />
                     </CarouselContent>
-                    <div className="absolute flex justify-center items-center m-auto left-0 right-0 w-[90%] lg:w-[95%] top-[50%]">
+                    <div className="absolute flex justify-center items-center m-auto left-0 right-0 w-[78%] lg:w-[90%] top-[50%]">
                         <CarouselPrevious className="text-white bg-slate-800 border-none" />
                         <CarouselNext className="text-white bg-slate-800 border-none" />
                     </div>
