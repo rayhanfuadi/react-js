@@ -15,12 +15,11 @@ const AuthLayouts = (props) => {
                     <h2 className="text-center font-semibold text-[18px] lg:text-[32px]">{tittle}</h2>
                     <p className="text-center text-[12px] lg:text-[16px]">{text}</p>
                 </div>
-
                 {/* Form Login & Form Regist */}
                 {type === "login" ? <FormLogin /> : <FormRegist />}
 
                 {/* Button Masuk */}
-                <Button tittle={textButton1} google={textButton2} href="/login" />
+                <Button tittle={textButton1} google={textButton2} href="/home" />
             </div>
         </div>
     )

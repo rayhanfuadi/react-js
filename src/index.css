@@ -1,3 +1,41 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+swiper-container {
+    --swiper-navigation-color: #fff; 
+    --swiper-pagination-color: #fff;
+}
+
+.swiper-wrapper {
+      width: 100%;
+      height: max-content !important;
+      -webkit-transition-timing-function: linear !important;
+      transition-timing-function: linear !important;
+      position: relative;
+      }
+
+.swiper-pagination-bullet {
+      background: #4f46e5;
+}
+
+.swiper-container {
+    position: relative;
+    overflow: visible; /* Pastikan kontainer utama tidak memotong tombol */
+}
+
+#slider-button-left {
+    position: absolute;
+    left: -20px; /* Tambah jarak dari kiri */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+}
+
+#slider-button-right {
+    position: absolute;
+    right: -20px; /* Tambah jarak dari kanan */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+}
