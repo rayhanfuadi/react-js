@@ -26,7 +26,9 @@ export const MenuBar = () => {
                 <DropdownMenuContent className="absolute -right-10 py-[8px] w-auto bg-primary text-white border-none">
                     <DropdownMenuLabel className="px-[12px] py-[8px] hover:bg-[#0f1011] cursor-pointer">Profil Saya</DropdownMenuLabel>
                     <DropdownMenuLabel className="px-[12px] py-[8px] hover:bg-[#0f1011] cursor-pointer">Ubah Premium</DropdownMenuLabel>
-                    <DropdownMenuLabel className="px-[12px] py-[8px] hover:bg-[#0f1011] cursor-pointer">Keluar</DropdownMenuLabel>
+                    <a href="/login">
+                        <DropdownMenuLabel className="px-[12px] py-[8px] hover:bg-[#0f1011] cursor-pointer">Keluar</DropdownMenuLabel>
+                    </a>
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>
