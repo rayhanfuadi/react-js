@@ -16,7 +16,7 @@ const ShadcnCarousel = (props) => {
     return (
         <div className="relative flex justify-center p-0 bg-primary">
             <Carousel opts={{ align: "start", }} className="relative w-full">
-                <CarouselContent className="m-0 flex justify-start gap-x-3 lg:gap-x-0">
+                <CarouselContent className="m-0 flex justify-start gap-x-3 lg:gap-x-6">
                     {Array.from({ length: 8 }).map((_, index) => (
                         <CarouselItem key={index} className="p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                             <div className="">
