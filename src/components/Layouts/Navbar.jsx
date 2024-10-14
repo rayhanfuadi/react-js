@@ -10,9 +10,9 @@ const Navbar = () => {
                         <img className="h-[20px] hidden lg:block lg:h-[44px]" src="img/logo-nav.svg" alt="" />
                         <img className="block lg:hidden" src="img/logo-mobile.svg" alt="" />
                     </a>
-                    <a className="text-[14px]" href="">Series</a>
+                    <a className="text-[14px]" href="/home">Series</a>
                     <a className="text-[14px]" href="">Film</a>
-                    <a className="text-[14px]" href="">Daftar Saya</a>
+                    <a className="text-[14px]" href="/list">Daftar Saya</a>
                 </div>
                 <MenuBar />
             </div>
