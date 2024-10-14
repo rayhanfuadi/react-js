@@ -1,7 +1,6 @@
 import {
     Carousel,
     CarouselContent,
-    CarouselItem,
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
@@ -19,7 +18,7 @@ const RilisBaru = () => {
             {/* <!-- start --> */}
             <div className="relative flex justify-center p-0 bg-primary">
                 <Carousel opts={{ align: "start", }} className="relative w-full">
-                    <CarouselContent className="m-0 flex justify-start gap-x-3 lg:gap-x-0">
+                    <CarouselContent className="m-0 flex justify-start gap-x-3 lg:gap-x-6">
                         <RilisCard justify="end" badge={<BadgeMerah />} img={1} />
                         <RilisCard justify="start" badge={<BadgeBiru />} img={2} />
                         <RilisCard img={3} />
