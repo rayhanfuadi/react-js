@@ -24,13 +24,17 @@ export const MenuBar = () => {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="absolute  flex flex-col -right-10 py-[8px] w-auto bg-primary text-white border-none">
-                    <DropdownMenuLabel className="w-[150px] flex items-center gap-2 px-[12px] py-[8px] hover:bg-[#0f1011] hover:text-indigo-500 cursor-pointer">
-                        <img className="w-[20px]" src="img/user.svg" alt="" />
-                        Profil Saya
+                    <DropdownMenuLabel className="w-[150px] flex items-center px-[12px] py-[8px] hover:bg-[#0f1011] hover:text-indigo-500 cursor-pointer">
+                        <a className="flex gap-2" href="/profile">
+                            <img className="w-[20px]" src="img/user.svg" alt="" />
+                            Profil Saya
+                        </a>
                     </DropdownMenuLabel>
-                    <DropdownMenuLabel className="w-[150px] flex items-center gap-2 px-[12px] py-[8px] hover:bg-[#0f1011] hover:text-indigo-500 cursor-pointer">
-                        <img className="w-[20px]" src="img/star.svg" alt="" />
-                        Ubah Premium
+                    <DropdownMenuLabel className="w-[150px] flex items-center px-[12px] py-[8px] hover:bg-[#0f1011] hover:text-indigo-500 cursor-pointer">
+                        <a className="flex gap-2" href="/changeService">
+                            <img className="w-[20px]" src="img/star.svg" alt="" />
+                            Ubah Premium
+                        </a>
                     </DropdownMenuLabel>
                     <a href="/login">
                         <DropdownMenuLabel className="w-[150px] flex items-center gap-2 px-[12px] py-[8px] hover:bg-[#0f1011] hover:text-indigo-500 cursor-pointer">

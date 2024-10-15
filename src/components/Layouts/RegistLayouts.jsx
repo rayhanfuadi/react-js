@@ -2,7 +2,7 @@ import Button from "../Elements/Button/Index"
 import FormLogin from "../Fragments/FormLogin"
 import FormRegist from "../Fragments/FormRegist"
 
-const AuthLayouts = (props) => {
+const RegistLayouts = (props) => {
     const { tittle, text, textButton1, textButton2, type } = props
     return (
         <div className="flex justify-center items-center h-full p-[30px]">
@@ -16,7 +16,7 @@ const AuthLayouts = (props) => {
                     <p className="text-center text-[12px] lg:text-[16px]">{text}</p>
                 </div>
                 {/* Form Login & Form Regist */}
-                {type === "login" ? <FormLogin /> : <FormRegist />}
+                <FormRegist />
 
                 {/* Button Masuk */}
                 <Button tittle={textButton1} google={textButton2} href="/home" />
@@ -25,4 +25,4 @@ const AuthLayouts = (props) => {
     )
 }
 
-export default AuthLayouts
+export default RegistLayouts
