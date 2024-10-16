@@ -54,7 +54,7 @@ const List = () => {
         }
     ]
     return (
-        <div className="p-5 lg:px-[80px] lg:py-[40px]">
+        <div className="p-5 lg:px-[80px] lg:py-[40px]" >
             <div className="grid gap-8">
                 <div className="flex justify-between">
                     <h1 className="text-white font-bold text-xl lg:text-[32px]">Daftar Saya</h1>
@@ -87,9 +87,12 @@ const List = () => {
                     </div >
                 </div>
 
+                <div className="bg-slate-100 mb-[20px] px-[20px] h-full">
+                    <h1 className="text-2xl font-semibold">Cart</h1>
+                </div>
 
             </div>
-        </div>
+        </div >
     )
 }
 
