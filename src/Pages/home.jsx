@@ -3,7 +3,6 @@ import HeroSection from "../components/Layouts/HeroSection"
 import Navbar from "../components/Layouts/Navbar"
 import CarouselSwiper from "../components/Layouts/CarouselSwiper";
 import TopRating from "../components/Layouts/TopRating";
-import ShadcnCarousel from "@/components/Shadcn/ShadcnCarousel";
 import FilmTranding from "@/components/Layouts/FilmTranding";
 import RilisBaru from "@/components/Layouts/RilisBaru";
 import Footer from "@/components/Layouts/Footer";
