@@ -1,6 +1,5 @@
 import Button from "../Elements/Button/Index"
 import FormLogin from "../Fragments/FormLogin"
-import FormRegist from "../Fragments/FormRegist"
 
 const LoginLayouts = (props) => {
     const { tittle, text, textButton1, textButton2 } = props
@@ -19,7 +18,7 @@ const LoginLayouts = (props) => {
                 <FormLogin />
 
                 {/* Button Masuk */}
-                <Button tittle={textButton1} google={textButton2} href="/home" />
+                {/* <Button tittle={textButton1} google={textButton2} href="/home" /> */}
             </div>
         </div>
     )

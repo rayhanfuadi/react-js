@@ -14,6 +14,11 @@ import {
 } from "@/components/ui/dropdown-menu"
 export const MenuBar = () => {
     const [position, setPosition] = React.useState("bottom")
+    const handleLogout = () => {
+        window.location.href = "/login"
+        localStorage.removeItem("username")
+        localStorage.removeItem("password")
+    }
     return (
         <div className="relative flex justify-end">
             <DropdownMenu className="flex justify-end w-full">
@@ -36,12 +41,12 @@ export const MenuBar = () => {
                             Ubah Premium
                         </a>
                     </DropdownMenuLabel>
-                    <a href="/login">
+                    <button onClick={handleLogout} href="/login">
                         <DropdownMenuLabel className="w-[150px] flex items-center gap-2 px-[12px] py-[8px] hover:bg-[#0f1011] hover:text-indigo-500 cursor-pointer">
                             <img className="w-[20px]" src="img/logout.svg" alt="" />
                             Keluar
                         </DropdownMenuLabel>
-                    </a>
+                    </button>
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>
