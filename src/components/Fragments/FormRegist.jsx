@@ -1,3 +1,5 @@
+import ButtonAuth from "../Elements/Button/ButtonAuth"
+import ButtonAuth2 from "../Elements/Button/ButtonAuth2"
 import InputPassword from "../Elements/InputPassword/InputPassword"
 import InputUser from "../Elements/InputUser/InputUser"
 import Label from "../Elements/InputUser/Label"
@@ -23,6 +25,11 @@ const FormRegist = () => {
                     <a href="/login"><span class="opacity-70">sudah punya
                         akun?</span> Masuk</a>
                 </div>
+            </div>
+            <div className="flex flex-col gap-y-2">
+                <ButtonAuth tittle="Daftar Sekarang" href="/home" />
+                <p className="text-center">Atau</p>
+                <ButtonAuth2 tittle="Daftar Dengan Google" href="#" />
             </div>
         </form>
     )

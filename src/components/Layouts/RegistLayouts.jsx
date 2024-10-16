@@ -19,7 +19,7 @@ const RegistLayouts = (props) => {
                 <FormRegist />
 
                 {/* Button Masuk */}
-                <Button tittle={textButton1} google={textButton2} href="/home" />
+                {/* <Button tittle={textButton1} google={textButton2} href="/home" /> */}
             </div>
         </div>
     )
