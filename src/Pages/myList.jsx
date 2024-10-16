@@ -4,7 +4,7 @@ import List from "@/components/Layouts/List"
 
 const MyList = () => {
     return (
-        <>
+        <div className="bg-primary h-full">
             {/* Navbar */}
             <Navbar />
 
@@ -13,7 +13,7 @@ const MyList = () => {
 
             {/* Footer */}
             <Footer />
-        </>
+        </div>
     )
 }
 

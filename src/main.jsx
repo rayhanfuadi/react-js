@@ -8,6 +8,8 @@ import RegistPage from './Pages/regist';
 import HomePage from './Pages/home';
 import LandingPage from './Pages/LandingPage';
 import MyList from './Pages/myList';
+import Profile from './Pages/profile';
+import ChangeService from './Pages/changeService';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
   {
     path: "/list",
     element: <MyList />,
+  },
+  {
+    path: "profile",
+    element: <Profile />
+  },
+  {
+    path: "/changeService",
+    element: <ChangeService />
   }
 ])
 

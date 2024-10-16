@@ -1,3 +1,5 @@
+import { Section } from "lucide-react";
+
 const flowbite = require("flowbite-react/tailwind");
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -14,6 +16,9 @@ export default {
       },
       colors: {
         primary: '#181A1C',
+        secondary: '#3254FF',
+        gray: '#C1C2C4',
+
       }
     },
   },
