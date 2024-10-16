@@ -5,10 +5,10 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
-import TopRatingCard from "../Fragments/TopRatingCard"
-import { Card, CardContent } from "@/components/ui/card"
 import * as React from "react"
 
+import { Card, CardContent } from "@/components/ui/card"
+import TopRatingCard from "../Fragments/TopRatingCard"
 
 const ShadcnCarousel = (props) => {
     const { type, justify, children } = props
