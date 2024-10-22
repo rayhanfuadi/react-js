@@ -1,11 +1,11 @@
 const PopUpCard = (props) => {
-    const { id, tittle, img } = props
+    const { id, tittle, img, handleAddToCart } = props
     return (
         <div className="">
             <input type="checkbox" id={id} className="modal-toggle" />
             <div className="modal" role="dialog">
                 <div className="modal-box bg-primary p-0 w-fit">
-                    <img className="w-[350px] h-[175px] lg:w-[500px] lg:h-[250px] object-cover" src={img} alt="" />
+                    <img className="w-[300px] h-[150px] lg:w-[500px] lg:h-[250px] object-cover" src={img} alt="" />
                     <div className="flex flex-col px-[12px] mt-3 gap-3 lg:gap-5 lg:px-[24px] lg:mt-6">
                         <h3 className="text-[18px] lg:text-[24px] font-semibold">{tittle}</h3>
                         <div className="flex items-center justify-between">
@@ -28,7 +28,7 @@ const PopUpCard = (props) => {
                             <p className="font-semibold text-white text-[12px] lg:text-[20px]">16 Episode</p>
                         </div>
                         <div className="flex justify-end gap-2 lg:gap-4 mb-3 lg:mb-5">
-                            <label htmlFor={id} className="btn text-white bg-slate-800 hover:bg-slate-900/80">Masukan List</label>
+                            <button className="btn text-white bg-slate-800 hover:bg-slate-900/80" onClick={() => handleAddToCart(id)}>Masukan List</button>
                         </div>
                     </div>
                 </div>
