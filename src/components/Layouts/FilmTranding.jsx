@@ -9,47 +9,56 @@ import {
 } from "@/components/ui/carousel"
 import TopRatingCard from "../Fragments/TopRatingCard"
 import { Card, CardContent } from "@/components/ui/card"
+import PopUpCard from "../Fragments/popUpCard"
 
 export const FilmTranding = () => {
 
     const productsTranding = [
         {
             id: 1,
+            tittle: "The Tomorrow War",
             badge: <BadgeMerah />,
             img: "img/film/f1.png",
         },
         {
             id: 2,
+            tittle: "Quantumania",
             badge: <BadgeMerah />,
             img: "img/film/f2.png",
         },
         {
             id: 3,
+            tittle: "Guardian Of Galaxy Vol III",
             badge: <BadgeMerah />,
             img: "img/film/f3.png",
         },
         {
             id: 4,
+            tittle: "A Man Called Otto",
             badge: <BadgeMerah />,
             img: "img/film/f4.png",
         },
         {
             id: 5,
+            tittle: "Little Mermaid",
             badge: <BadgeMerah />,
             img: "img/film/f5.png",
         },
         {
             id: 6,
+            tittle: "The Tomorrow War",
             badge: <BadgeMerah />,
             img: "img/film/f6.png",
         },
         {
             id: 7,
+            tittle: "Quantumania",
             badge: <BadgeMerah />,
             img: "img/film/f2.png",
         },
         {
             id: 8,
+            tittle: "Guardian Of Galaxy Vol III",
             badge: <BadgeMerah />,
             img: "img/film/f3.png",
         },
@@ -59,8 +68,11 @@ export const FilmTranding = () => {
         <div className="p-[20px] lg:py-[40px] lg:px-[80px] bg-primary">
             <div className="font-semibold text-white text-[20px] lg:text-[32px] mb-[20px] lg:mb-[32px]">Film Tranding
             </div>
-            {/* <!-- start --> */}
-            {/* <ShadcnCarousel type="f" justify="end" children={<BadgeMerah />} /> */}
+
+            {/* Pop Up Card */}
+            {productsTranding.map((e) => (
+                <PopUpCard id={`tranding_modal_${e.id}`} img={e.img} tittle={e.tittle} />
+            ))}
 
             {/* Products Carousel Film Tranding */}
             <div className="relative flex justify-center p-0 bg-primary">
@@ -69,13 +81,15 @@ export const FilmTranding = () => {
 
                         {productsTranding.map((product) => (
                             <CarouselItem key={product.id} className="p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
-                                <div className="">
-                                    <Card className="rounded-xl p-0 w-full border-none">
-                                        <CardContent className="flex p-0 items-center justify-center">
-                                            <TopRatingCard className="" justify="end" children={product.badge} img={product.img} />
-                                        </CardContent>
-                                    </Card>
-                                </div>
+                                <label htmlFor={`tranding_modal_${product.id}`} className="">
+                                    <div className="cursor-pointer">
+                                        <Card className="rounded-xl p-0 w-full border-none">
+                                            <CardContent className="flex p-0 items-center justify-center">
+                                                <TopRatingCard className="" justify="end" children={product.badge} img={product.img} />
+                                            </CardContent>
+                                        </Card>
+                                    </div>
+                                </label>
                             </CarouselItem>
                         ))}
 
