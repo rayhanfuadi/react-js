@@ -1,3 +1,4 @@
+import { useState } from "react"
 import BadgeBiru from "../Elements/Badges/Badge"
 import {
     Carousel,
@@ -69,11 +70,10 @@ export const TopRating = () => {
                 ini
             </div>
 
-            {/* Put this part before </body> tag */}
+            {/* Pop Up Card */}
             {productsRating.map((e) => (
                 <PopUpCard id={`rating_modal_${e.id}`} img={e.img} tittle={e.tittle} />
             ))}
-
 
             {/* Products Carousel Top Rating */}
             <div className="flex justify-center p-0 bg-primary">
@@ -86,8 +86,8 @@ export const TopRating = () => {
                         {productsRating.map((product) => (
                             <CarouselItem className="p-0 m-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                 <label htmlFor={`rating_modal_${product.id}`} className="">
-                                    <div className="relative p-0">
-                                        <Card className="rounded-xl p-0 w-full border-none cursor-pointer">
+                                    <div className="cursor-pointer">
+                                        <Card className="rounded-xl p-0 w-full border-none">
                                             <CardContent className="flex p-0 items-center justify-center">
                                                 <TopRatingCard className="" justify="start" children={product.badge} img={product.img} />
                                             </CardContent>

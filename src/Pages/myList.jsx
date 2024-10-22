@@ -11,9 +11,6 @@ const MyList = () => {
 
             {/* MyList */}
             <List />
-            <div className="flex justify-center">
-                <Counter />
-            </div>
 
             {/* useState Component */}
 

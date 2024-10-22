@@ -1,3 +1,4 @@
+import { useState } from "react"
 import BadgeBiru from "../Elements/Badges/Badge"
 import TopRatingCard from "../Fragments/TopRatingCard"
 import {
@@ -9,50 +10,123 @@ import {
 } from "@/components/ui/carousel"
 import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card"
+import PopUpCard from "../Fragments/popUpCard"
 
 const List = () => {
     const productsRating = [
         {
             id: 1,
+            tittle: "Suzume",
             badge: <BadgeBiru />,
             img: "img/film/t1.png",
         },
         {
             id: 2,
+            tittle: "Jurassic World",
             badge: <BadgeBiru />,
             img: "img/film/t2.png",
         },
         {
             id: 3,
+            tittle: "Sonic 2",
             badge: <BadgeBiru />,
             img: "img/film/t3.png",
         },
         {
             id: 4,
+            tittle: "All Of Us Are Dead",
             badge: <BadgeBiru />,
             img: "img/film/t4.png",
         },
         {
             id: 5,
+            tittle: "Big Hero 6",
             badge: <BadgeBiru />,
             img: "img/film/t5.png",
         },
         {
             id: 6,
+            tittle: "Suzume",
             badge: <BadgeBiru />,
             img: "img/film/t6.png",
         },
         {
             id: 7,
+            tittle: "Jurassic World",
             badge: <BadgeBiru />,
             img: "img/film/t2.png",
         },
         {
             id: 8,
+            tittle: "Sonic 2",
             badge: <BadgeBiru />,
             img: "img/film/t3.png",
         }
     ]
+
+    const [cart, setCart] = useState([
+        {
+            id: 1,
+            tittle: "Suzume",
+            badge: <BadgeBiru />,
+            img: "img/film/t1.png",
+        },
+        {
+            id: 2,
+            tittle: "Jurassic World",
+            badge: <BadgeBiru />,
+            img: "img/film/t2.png",
+        },
+        {
+            id: 3,
+            tittle: "Sonic 2",
+            badge: <BadgeBiru />,
+            img: "img/film/t3.png",
+        },
+        {
+            id: 4,
+            tittle: "All Of Us Are Dead",
+            badge: <BadgeBiru />,
+            img: "img/film/t4.png",
+        },
+        {
+            id: 5,
+            tittle: "Big Hero 6",
+            badge: <BadgeBiru />,
+            img: "img/film/t5.png",
+        },
+        {
+            id: 6,
+            tittle: "Suzume",
+            badge: <BadgeBiru />,
+            img: "img/film/t6.png",
+        },
+        {
+            id: 7,
+            tittle: "Jurassic World",
+            badge: <BadgeBiru />,
+            img: "img/film/t2.png",
+        },
+        {
+            id: 8,
+            tittle: "Sonic 2",
+            badge: <BadgeBiru />,
+            img: "img/film/t3.png",
+        }
+    ])
+
+    const handleAddToCart = (card) => {
+        setCart([
+            ...cart,
+            {
+                id: card.id,
+                tittle: card.tittle,
+                badge: card.badge,
+                img: card.img,
+            },
+        ])
+    }
+
     return (
         <div className="p-5 lg:px-[80px] lg:py-[40px]" >
             <div className="grid gap-8">
@@ -61,23 +135,33 @@ const List = () => {
                     <p className="text-white text-[18px] hidden lg:block">Lihat Semua</p>
                 </div>
                 <div className="">
-                    {/* <ShadcnCarousel type="t" justify="start" children={<BadgeBiru />} /> */}
+                    {/* Pop Up Card */}
+                    {productsRating.map((e) => (
+                        <PopUpCard handleAddToCart={handleAddToCart} id={`rating_modal_${e.id}`} img={e.img} tittle={e.tittle} />
+                    ))}
 
                     {/* Carousel Top Rating */}
-                    <div className="relative flex justify-center p-0 bg-primary">
-                        <Carousel opts={{ align: "start", }} className="relative w-full">
-                            <CarouselContent className="m-0 flex justify-start gap-x-3 lg:gap-x-6">
+                    <div className="flex justify-center p-0 bg-primary">
+                        <Carousel
+                            className="relative w-full justify-center"
+                            opts={{ align: "start", }}
+                        >
+                            <CarouselContent className="relative m-0 flex justify-start gap-x-3 lg:gap-x-6">
+
                                 {productsRating.map((product) => (
-                                    <CarouselItem className="p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
-                                        <div className="">
-                                            <Card className="rounded-xl p-0 w-full border-none">
-                                                <CardContent className="flex p-0 items-center justify-center">
-                                                    <TopRatingCard className="" justify="start" children={product.badge} img={product.img} />
-                                                </CardContent>
-                                            </Card>
-                                        </div>
+                                    <CarouselItem className="p-0 m-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                                        <label htmlFor={`rating_modal_${product.id}`} className="">
+                                            <div className="cursor-pointer">
+                                                <Card className="rounded-xl p-0 w-full border-none">
+                                                    <CardContent className="flex p-0 items-center justify-center">
+                                                        <TopRatingCard className="" justify="start" children={product.badge} img={product.img} />
+                                                    </CardContent>
+                                                </Card>
+                                            </div>
+                                        </label>
                                     </CarouselItem>
                                 ))}
+
                             </CarouselContent>
                             <div className="absolute flex justify-center items-center m-auto left-0 right-0 w-[78%] lg:w-[90%] top-[50%]">
                                 <CarouselPrevious className="text-white absolute m-auto bg-slate-800 border-none" />
@@ -87,10 +171,24 @@ const List = () => {
                     </div >
                 </div>
 
-                <div className="bg-slate-100 mb-[20px] px-[20px] h-full">
-                    <h1 className="text-2xl font-semibold">Cart</h1>
+                <div className="bg-slate-100/10 mb-[20px] px-[20px] h-full">
+                    <h1 className="text-2xl text-white mb-4">Cart</h1>
+                    <div className="bg-white flex flex-wrap w-full">
+                        {cart.map((item) => (
+                            <Carousel key={item.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
+                                <CarouselItem className="p-1 lg:p-3 m-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                                    <div className="cursor-pointer">
+                                        <Card className="rounded-xl p-0 w-full border-none">
+                                            <CardContent className="flex p-0 items-center justify-center">
+                                                <TopRatingCard className="" justify="start" children={item.badge} img={item.img} />
+                                            </CardContent>
+                                        </Card>
+                                    </div>
+                                </CarouselItem>
+                            </Carousel>
+                        ))}
+                    </div>
                 </div>
-
             </div>
         </div >
     )
