@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import BadgeBiru from "../Elements/Badges/Badge"
 import TopRatingCard from "../Fragments/TopRatingCard"
 import {
@@ -11,6 +11,7 @@ import {
 import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
+import Button from "../Elements/Button/Index"
 
 const List = () => {
     const productsRating = [
@@ -64,7 +65,7 @@ const List = () => {
         }
     ]
 
-    const [cart, setCart] = useState([
+    const [film, setFilm] = useState([
         {
             id: 1,
             tittle: "Suzume",
@@ -115,72 +116,88 @@ const List = () => {
         }
     ])
 
-    const handleAddToCart = (card) => {
-        setCart([
-            ...cart,
+    const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
+        setFilm([
+            ...film,
             {
-                id: card.id,
-                tittle: card.tittle,
-                badge: card.badge,
-                img: card.img,
-            },
+                id: productId,
+                tittle: productTittle,
+                badge: productBadge,
+                img: productImg
+            }
         ])
     }
-
     return (
-        <div className="p-5 lg:px-[80px] lg:py-[40px]" >
-            <div className="grid gap-8">
-                <div className="flex justify-between">
-                    <h1 className="text-white font-bold text-xl lg:text-[32px]">Daftar Saya</h1>
-                    <p className="text-white text-[18px] hidden lg:block">Lihat Semua</p>
-                </div>
-                <div className="">
-                    {/* Pop Up Card */}
-                    {productsRating.map((e) => (
-                        <PopUpCard handleAddToCart={handleAddToCart} id={`rating_modal_${e.id}`} img={e.img} tittle={e.tittle} />
-                    ))}
+        <div className="">
+            <div className="p-5 lg:px-[80px] lg:py-[40px]">
+                <div className="grid gap-8">
+                    <div className="flex justify-between">
+                        <h1 className="text-white font-bold text-xl lg:text-[32px]">Daftar Saya</h1>
+                        <p className="text-white text-[18px] hidden lg:block">Lihat Semua</p>
+                    </div>
 
-                    {/* Carousel Top Rating */}
-                    <div className="flex justify-center p-0 bg-primary">
-                        <Carousel
-                            className="relative w-full justify-center"
-                            opts={{ align: "start", }}
-                        >
-                            <CarouselContent className="relative m-0 flex justify-start gap-x-3 lg:gap-x-6">
-
-                                {productsRating.map((product) => (
-                                    <CarouselItem className="p-0 m-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
-                                        <label htmlFor={`rating_modal_${product.id}`} className="">
-                                            <div className="cursor-pointer">
-                                                <Card className="rounded-xl p-0 w-full border-none">
-                                                    <CardContent className="flex p-0 items-center justify-center">
-                                                        <TopRatingCard className="" justify="start" children={product.badge} img={product.img} />
-                                                    </CardContent>
-                                                </Card>
-                                            </div>
-                                        </label>
-                                    </CarouselItem>
-                                ))}
-
-                            </CarouselContent>
-                            <div className="absolute flex justify-center items-center m-auto left-0 right-0 w-[78%] lg:w-[90%] top-[50%]">
-                                <CarouselPrevious className="text-white absolute m-auto bg-slate-800 border-none" />
-                                <CarouselNext className="text-white bg-slate-800 border-none" />
+                    <div className="">
+                        {/* Pop Up Card */}
+                        {productsRating.map((e) => (
+                            <div className="">
+                                <input type="checkbox" id={`rating_modal_${e.id}`} className="modal-toggle" />
+                                <div className="modal" role="dialog">
+                                    <div className="modal-box bg-primary p-0 w-fit">
+                                        <PopUpCard img={e.img} tittle={e.tittle} />
+                                        <div className="flex justify-end gap-2 lg:gap-4 mb-3 lg:mb-5">
+                                            <button className="btn text-white bg-slate-800 mr-3 lg:mr-6 hover:bg-slate-900/80" onClick={() => handleAddToCart(e.id, e.tittle, e.badge, e.img)}>Masukan List</button>
+                                        </div>
+                                    </div>
+                                    <label className="modal-backdrop" htmlFor={`rating_modal_${e.id}`}>Close</label>
+                                </div>
                             </div>
-                        </Carousel>
-                    </div >
-                </div>
+                        ))}
+                        {/* Carousel Top Rating */}
+                        <div className="flex justify-center p-0 bg-primary">
+                            <Carousel
+                                className="relative w-full justify-center"
+                                opts={{ align: "start", }}
+                            >
+                                <CarouselContent className="relative m-0 flex justify-start gap-x-3 lg:gap-x-6">
 
-                <div className="bg-slate-100/10 mb-[20px] px-[20px] h-full">
-                    <h1 className="text-2xl text-white mb-4">Cart</h1>
-                    <div className="bg-white flex flex-wrap w-full">
-                        {cart.map((item) => (
-                            <Carousel key={item.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
-                                <CarouselItem className="p-1 lg:p-3 m-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                                    {productsRating.map((product) => (
+                                        <CarouselItem className="p-0 m-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                                            <label htmlFor={`rating_modal_${product.id}`} className="">
+                                                <div className="cursor-pointer">
+                                                    <Card className="rounded-xl p-0 w-full border-none">
+                                                        <CardContent className="flex p-0 items-center justify-center">
+                                                            <TopRatingCard className="" justify="start" children={product.badge} img={product.img} />
+                                                        </CardContent>
+                                                    </Card>
+                                                </div>
+                                            </label>
+                                        </CarouselItem>
+                                    ))}
+
+                                </CarouselContent>
+                                <div className="absolute flex justify-center items-center m-auto left-0 right-0 w-[78%] lg:w-[90%] top-[50%]">
+                                    <CarouselPrevious className="text-white absolute m-auto bg-slate-800 border-none" />
+                                    <CarouselNext className="text-white bg-slate-800 border-none" />
+                                </div>
+                            </Carousel>
+                        </div >
+                    </div>
+
+                </div>
+            </div >
+
+            {/* Cart */}
+            <div className="bg-slate-100/10 mb-[20px] h-full">
+                <div className="p-5 lg:px-[80px] lg:py-[40px]">
+                    <h1 className="text-2xl text-white mb-4">Use State (List Film)</h1>
+                    <div className="flex flex-wrap gap-2 lg:gap-4 ">
+                        {film.map((e) => (
+                            <Carousel key={e} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
+                                <CarouselItem className="m-0 p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                     <div className="cursor-pointer">
                                         <Card className="rounded-xl p-0 w-full border-none">
                                             <CardContent className="flex p-0 items-center justify-center">
-                                                <TopRatingCard className="" justify="start" children={item.badge} img={item.img} />
+                                                <TopRatingCard className="" justify="start" children={e.badge} img={e.img} />
                                             </CardContent>
                                         </Card>
                                     </div>
@@ -191,6 +208,7 @@ const List = () => {
                 </div>
             </div>
         </div >
+
     )
 }
 

@@ -71,8 +71,20 @@ export const FilmTranding = () => {
 
             {/* Pop Up Card */}
             {productsTranding.map((e) => (
-                <PopUpCard id={`tranding_modal_${e.id}`} img={e.img} tittle={e.tittle} />
-            ))}
+                <div className="">
+                    <input type="checkbox" id={`tranding_modal_${e.id}`} className="modal-toggle" />
+                    <div className="modal" role="dialog">
+                        <div className="modal-box bg-primary p-0 w-fit">
+                            <PopUpCard img={e.img} tittle={e.tittle} />
+                            <div className="flex justify-end gap-2 lg:gap-4 mb-3 lg:mb-5">
+                                <button className="btn text-white bg-slate-800 mr-3 lg:mr-6 hover:bg-slate-900/80" onClick={() => handleAddToCart(e.id, e.tittle, e.badge, e.img)}>Masukan List</button>
+                            </div>
+                        </div>
+                        <label className="modal-backdrop" htmlFor={`tranding_modal_${e.id}`}>Close</label>
+                    </div>
+                </div>
+            ))
+            }
 
             {/* Products Carousel Film Tranding */}
             <div className="relative flex justify-center p-0 bg-primary">
