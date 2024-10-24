@@ -71,8 +71,8 @@ export const TopRating = () => {
             </div>
 
             {/* Pop Up Card */}
-            {productsRating.map((e) => (
-                <div className="">
+            {productsRating.map((e, index) => (
+                <div key={index}>
                     <input type="checkbox" id={`rating_modal_${e.id}`} className="modal-toggle" />
                     <div className="modal" role="dialog">
                         <div className="modal-box bg-primary p-0 w-fit">
@@ -94,8 +94,8 @@ export const TopRating = () => {
                 >
                     <CarouselContent className="relative m-0 flex justify-start gap-x-3 lg:gap-x-6">
 
-                        {productsRating.map((product) => (
-                            <CarouselItem className="p-0 m-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                        {productsRating.map((product, index) => (
+                            <CarouselItem key={index} className="p-0 m-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                 <label htmlFor={`rating_modal_${product.id}`} className="">
                                     <div className="cursor-pointer">
                                         <Card className="rounded-xl p-0 w-full border-none">

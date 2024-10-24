@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-
+import { useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
@@ -12,10 +12,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import Api from "@/api/genre-api"
+
 
 const HeroFilm = (props) => {
     const { hero } = props
-    const [position, setPosition] = React.useState("bottom")
+    useEffect(() => {
+        Api.get('/genres').then((res) => {
+            console.log(res)
+        })
+    }, [])
 
     const genre = [
         {
@@ -75,8 +81,10 @@ const HeroFilm = (props) => {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="absolute bg-[#22282A] w-[392px] -left-[52px] border-none">
                             <div className="grid grid-cols-2 rounded-md">
-                                {genre.map((name) => (
-                                    <p className="text-[14px] font-medium text-white rounded-md px-[12px] py-[8px] hover:bg-[#3D4142] cursor-pointer">{name.tittle}</p>
+                                {genre.map((name, index) => (
+                                    <div key={index}>
+                                        <p className="text-[14px] font-medium text-white rounded-md px-[12px] py-[8px] hover:bg-[#3D4142] cursor-pointer">{name.tittle}</p>
+                                    </div>
                                 ))}
                             </div>
                         </DropdownMenuContent>

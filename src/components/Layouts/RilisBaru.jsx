@@ -78,8 +78,8 @@ const RilisBaru = () => {
             </div>
 
             {/* Pop Up Card */}
-            {productsRilis.map((e) => (
-                <div className="">
+            {productsRilis.map((e, index) => (
+                <div key={index}>
                     <input type="checkbox" id={`rilis_modal_${e.id}`} className="modal-toggle" />
                     <div className="modal" role="dialog">
                         <div className="modal-box bg-primary p-0 w-fit">
@@ -98,8 +98,8 @@ const RilisBaru = () => {
                 <Carousel opts={{ align: "start", }} className="relative w-full">
                     <CarouselContent className="m-0 flex justify-start gap-x-3 lg:gap-x-6">
 
-                        {productsRilis.map((product) => (
-                            <CarouselItem key={product.id} className="p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                        {productsRilis.map((product, index) => (
+                            <CarouselItem key={index} className="p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                 <label htmlFor={`rilis_modal_${product.id}`} className="">
                                     <div className="cursor-pointer">
                                         <Card className="rounded-xl p-0 w-full border-none">
