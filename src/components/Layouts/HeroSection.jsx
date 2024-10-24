@@ -1,4 +1,5 @@
-const HeroSection = () => {
+const HeroSection = (props) => {
+    const { hero } = props
     return (
         <div className="container-xl relative">
             <div
@@ -28,7 +29,7 @@ const HeroSection = () => {
                 </div>
             </div>
             <div className="w-full relative lg:h-[600px]">
-                <img className="w-full lg:object-cover lg:h-[590px]" src="img/film/hero2.png" alt="" />
+                <img className="w-full lg:object-cover lg:h-[590px]" src={`img/film/${hero}`} alt="" />
             </div>
         </div>
     )

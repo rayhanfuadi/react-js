@@ -12,7 +12,7 @@ const Navbar = () => {
                         <img className="block lg:hidden" src="img/logo-mobile.svg" alt="" />
                     </a>
                     <a className="text-[14px] lg:text-[18px]" href="/home">Series</a>
-                    <a className="text-[14px] lg:text-[18px]" href="">Film</a>
+                    <a className="text-[14px] lg:text-[18px]" href="/film">Film</a>
                     <a className="text-[14px] lg:text-[18px]" href="/list">Daftar Saya</a>
                 </div>
                 <div className="flex items-center text-white text-[14px] lg:text-[18px]">
