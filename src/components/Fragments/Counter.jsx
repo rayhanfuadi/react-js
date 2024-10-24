@@ -1,5 +1,4 @@
 import React from "react"
-import ButtonAuth from "../Elements/Button/ButtonAuth"
 
 class Counter extends React.Component {
     constructor(props) {
@@ -7,12 +6,20 @@ class Counter extends React.Component {
         this.state = {
             count: 0,
         }
+        console.log("render 1")
     }
+
+    componentDidMount() {
+        this.setState({ count: 10 })
+        console.log("render 2 DidMount")
+    }
+
     render() {
         return (
-            <div className="bg-white flex justify-center items-center px-12 gap-4">
+            <div className=" flex justify-center items-center px-12 gap-4 mt-10">
                 <h1>{this.state.count}</h1>
-                <ButtonAuth onClick={() => this.setState({ count: this.state.count + 1 })} tittle="click Me!" />
+                <button className="btn text-white" onClick={() => this.setState({ count: this.state.count + 1 })} tittle="click Me!">add</button>
+                {console.log("render 3")}
             </div>
         )
     }

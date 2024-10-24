@@ -1,23 +1,20 @@
-
-import HeroSection from "../components/Layouts/HeroSection"
 import Navbar from "../components/Layouts/Navbar"
 import CarouselSwiper from "../components/Layouts/CarouselSwiper";
 import TopRating from "../components/Layouts/TopRating";
 import FilmTranding from "@/components/Layouts/FilmTranding";
 import RilisBaru from "@/components/Layouts/RilisBaru";
 import Footer from "@/components/Layouts/Footer";
+import HeroFilm from "@/components/Layouts/HeroFilm";
 
 
-
-const HomePage = () => {
-
+const Film = () => {
     return (
         <div className="bg-primary">
             {/* Navbar Start */}
             <Navbar />
 
             {/* HeroSection */}
-            <HeroSection hero="hero2.png" />
+            <HeroFilm hero="avatar.png" />
 
             {/* Carousel Swipper JS */}
             <CarouselSwiper />
@@ -37,5 +34,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage
-
+export default Film

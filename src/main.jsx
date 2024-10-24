@@ -10,6 +10,7 @@ import LandingPage from './Pages/LandingPage';
 import MyList from './Pages/myList';
 import Profile from './Pages/profile';
 import ChangeService from './Pages/changeService';
+import Film from './Pages/Film'
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
   {
     path: "/changeService",
     element: <ChangeService />
+  },
+  {
+    path: "/film",
+    element: <Film />
   }
 ])
 

@@ -11,7 +11,6 @@ import {
 import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
-import Button from "../Elements/Button/Index"
 
 const List = () => {
     const productsRating = [
@@ -71,48 +70,6 @@ const List = () => {
             tittle: "Suzume",
             badge: <BadgeBiru />,
             img: "img/film/t1.png",
-        },
-        {
-            id: 2,
-            tittle: "Jurassic World",
-            badge: <BadgeBiru />,
-            img: "img/film/t2.png",
-        },
-        {
-            id: 3,
-            tittle: "Sonic 2",
-            badge: <BadgeBiru />,
-            img: "img/film/t3.png",
-        },
-        {
-            id: 4,
-            tittle: "All Of Us Are Dead",
-            badge: <BadgeBiru />,
-            img: "img/film/t4.png",
-        },
-        {
-            id: 5,
-            tittle: "Big Hero 6",
-            badge: <BadgeBiru />,
-            img: "img/film/t5.png",
-        },
-        {
-            id: 6,
-            tittle: "Suzume",
-            badge: <BadgeBiru />,
-            img: "img/film/t6.png",
-        },
-        {
-            id: 7,
-            tittle: "Jurassic World",
-            badge: <BadgeBiru />,
-            img: "img/film/t2.png",
-        },
-        {
-            id: 8,
-            tittle: "Sonic 2",
-            badge: <BadgeBiru />,
-            img: "img/film/t3.png",
         }
     ])
 
@@ -192,7 +149,7 @@ const List = () => {
                     <h1 className="text-2xl text-white mb-4">Use State (List Film)</h1>
                     <div className="flex flex-wrap gap-2 lg:gap-4 ">
                         {film.map((e) => (
-                            <Carousel key={e} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
+                            <Carousel Carousel key={e} className="basis-1/3 md:basis-1/4 lg:basis-1/5" >
                                 <CarouselItem className="m-0 p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                     <div className="cursor-pointer">
                                         <Card className="rounded-xl p-0 w-full border-none">
