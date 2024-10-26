@@ -70,8 +70,8 @@ export const FilmTranding = () => {
             </div>
 
             {/* Pop Up Card */}
-            {productsTranding.map((e) => (
-                <div className="">
+            {productsTranding.map((e, index) => (
+                <div key={index}>
                     <input type="checkbox" id={`tranding_modal_${e.id}`} className="modal-toggle" />
                     <div className="modal" role="dialog">
                         <div className="modal-box bg-primary p-0 w-fit">
@@ -91,8 +91,8 @@ export const FilmTranding = () => {
                 <Carousel opts={{ align: "start", }} className="relative w-full">
                     <CarouselContent className="m-0 flex justify-start gap-x-3 lg:gap-x-6">
 
-                        {productsTranding.map((product) => (
-                            <CarouselItem key={product.id} className="p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                        {productsTranding.map((product, index) => (
+                            <CarouselItem key={index} className="p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                 <label htmlFor={`tranding_modal_${product.id}`} className="">
                                     <div className="cursor-pointer">
                                         <Card className="rounded-xl p-0 w-full border-none">

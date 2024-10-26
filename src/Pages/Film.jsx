@@ -6,7 +6,6 @@ import RilisBaru from "@/components/Layouts/RilisBaru";
 import Footer from "@/components/Layouts/Footer";
 import HeroFilm from "@/components/Layouts/HeroFilm";
 
-
 const Film = () => {
     return (
         <div className="bg-primary">

@@ -12,91 +12,110 @@ import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
 
-const productsRating = [
-    {
-        id: 1,
-        tittle: "Suzume",
-        badge: <BadgeBiru />,
-        img: "img/film/t1.png",
-    },
-    {
-        id: 2,
-        tittle: "Jurassic World",
-        badge: <BadgeBiru />,
-        img: "img/film/t2.png",
-    },
-    {
-        id: 3,
-        tittle: "Sonic 2",
-        badge: <BadgeBiru />,
-        img: "img/film/t3.png",
-    },
-    {
-        id: 4,
-        tittle: "All Of Us Are Dead",
-        badge: <BadgeBiru />,
-        img: "img/film/t4.png",
-    },
-    {
-        id: 5,
-        tittle: "Big Hero 6",
-        badge: <BadgeBiru />,
-        img: "img/film/t5.png",
-    },
-    {
-        id: 6,
-        tittle: "Suzume",
-        badge: <BadgeBiru />,
-        img: "img/film/t6.png",
-    },
-    {
-        id: 7,
-        tittle: "Jurassic World",
-        badge: <BadgeBiru />,
-        img: "img/film/t2.png",
-    },
-    {
-        id: 8,
-        tittle: "Sonic 2",
-        badge: <BadgeBiru />,
-        img: "img/film/t3.png",
-    }
-]
-
 const List = () => {
-    const [film, setFilm] = useState([])
+    const productsRating = [
+        {
+            id: 1,
+            tittle: "Suzume",
+            badge: <BadgeBiru />,
+            img: "img/film/t1.png",
+        },
+        {
+            id: 2,
+            tittle: "Jurassic World",
+            badge: <BadgeBiru />,
+            img: "img/film/t2.png",
+        },
+        {
+            id: 3,
+            tittle: "Sonic 2",
+            badge: <BadgeBiru />,
+            img: "img/film/t3.png",
+        },
+        {
+            id: 4,
+            tittle: "All Of Us Are Dead",
+            badge: <BadgeBiru />,
+            img: "img/film/t4.png",
+        },
+        {
+            id: 5,
+            tittle: "Big Hero 6",
+            badge: <BadgeBiru />,
+            img: "img/film/t5.png",
+        },
+        {
+            id: 6,
+            tittle: "Suzume",
+            badge: <BadgeBiru />,
+            img: "img/film/t6.png",
+        },
+        {
+            id: 7,
+            tittle: "Jurassic World",
+            badge: <BadgeBiru />,
+            img: "img/film/t2.png",
+        },
+        {
+            id: 8,
+            tittle: "Sonic 2",
+            badge: <BadgeBiru />,
+            img: "img/film/t3.png",
+        }
+    ]
+
+    const [film, setFilm] = useState([
+        {
+            id: 8,
+            tittle: "Sonic 2",
+            badge: <BadgeBiru />,
+            img: "img/film/t3.png",
+        }
+    ])
     const [totalFilm, setTotalFilm] = useState([])
-    const [filmToDelete, setFilmToDelete] = useState(null);
 
     useEffect(() => {
-        const storedFilm = JSON.parse(localStorage.getItem('film')) || []
-        setFilm(storedFilm)
+        setFilm(JSON.parse(localStorage.getItem("film")) || [])
     }, [])
 
+    useEffect(() => {
+        if (film.length > 0) {
+            const total = film.reduce((total, film) => {
+                const totalFilm = productsRating.find((e) => e.id === film.id)
+                return total + totalFilm
+            }, 0)
+            setTotalFilm(total)
+            localStorage.setItem("film", JSON.stringify(film))
+        }
+    }, [film])
+
+    // useEffect(() => {
+    //     setFilm(JSON.parse(localStorage.getItem("film")) || [])
+    // }, [])
+
+    // useEffect(() => {
+    //     if (film.length > 0) {
+    //         localStorage.setItem("setFilm", JSON.stringify(setFilm))
+    //     }
+    // }, [film])
 
     const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
-        const newFilmItem = {
-            id: productId,
-            tittle: productTittle,
-            badge: productBadge,
-            img: productImg,
-        };
-
-        if (!film.some((e) => e.id === productId)) {
-            const newFilm = [...film, newFilmItem]
-            setFilm(newFilm)
-            localStorage.setItem('film', JSON.stringify(newFilm))
+        if (film.find((e) => e.id === productId)) {
+            setFilm(
+                film.map((e) => e.id === productId ? { ...e, tittle: productTittle, badge: productBadge, img: productImg } : e)
+            )
+        } else {
+            setFilm([
+                ...film,
+                {
+                    id: productId,
+                    tittle: productTittle,
+                    badge: productBadge,
+                    img: productImg
+                }
+            ])
         }
     }
-
-    const handleDeleteFilm = () => {
-        if (filmToDelete) {
-            const updatedFilm = film.filter(item => item.id !== filmToDelete);
-            setFilm(updatedFilm);
-            localStorage.setItem('film', JSON.stringify(updatedFilm));
-            setFilmToDelete(null); // Reset filmToDelete setelah menghapus
-        }
-    };
     return (
         <div className="">
             <div className="p-5 lg:px-[80px] lg:py-[40px]">
@@ -108,8 +127,8 @@ const List = () => {
 
                     <div className="">
                         {/* Pop Up Card */}
-                        {productsRating.map((e) => (
-                            <div key={e.id}>
+                        {productsRating.map((e, index) => (
+                            <div key={index}>
                                 <input type="checkbox" id={`rating_modal_${e.id}`} className="modal-toggle" />
                                 <div className="modal" role="dialog">
                                     <div className="modal-box bg-primary p-0 w-fit">
@@ -122,7 +141,6 @@ const List = () => {
                                 </div>
                             </div>
                         ))}
-
                         {/* Carousel Top Rating */}
                         <div className="flex justify-center p-0 bg-primary">
                             <Carousel
@@ -157,56 +175,59 @@ const List = () => {
                 </div>
             </div >
 
-            {/* List Film */}
+            {/* Cart */}
             <div className="bg-slate-100/10 mb-[20px] h-full">
                 <div className="p-5 lg:px-[80px] lg:py-[40px]">
-                    <h1 className="text-3xl font-semibold text-white text-center mb-4 lg:mb-6">List Film</h1>
-                    <div className="flex flex-wrap justify-center gap-3 lg:gap-5 ">
-                        {film.length > 0 ? (
-                            film.map((item) => (
-                                <Carousel key={item.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
+                    <h1 className="text-2xl text-white mb-4">Use State (List Film)</h1>
+                    <div className="flex flex-wrap gap-2 lg:gap-4 ">
+                        {film.map((e, index) => {
+                            const product = productsRating.find((product) => product.id === e.id);
+                            return (
+                                <Carousel Carousel key={e.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5" >
                                     <CarouselItem className="m-0 p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                         <div className="cursor-pointer">
                                             <Card className="rounded-xl p-0 w-full border-none">
                                                 <CardContent className="flex p-0 items-center justify-center">
-                                                    <TopRatingCard
-                                                        justify="start"
-                                                        img={item.img}
-                                                    />
+                                                    <TopRatingCard className="" justify="start" children={product.badge} img={product.img} />
                                                 </CardContent>
                                             </Card>
-                                            {/* Tombol Hapus */}
-                                            <button
-                                                className="absolute bg-transparent w-full h-full top-0 text-red-500"
-                                                onClick={() => setFilmToDelete(item.id)}
-                                            ></button>
                                         </div>
                                     </CarouselItem>
                                 </Carousel>
-                            ))
-                        ) : (
-                            <div className="">List Film Kosong</div>
-                        )}
+                            )
 
+                        }
+                        )}
                     </div>
                 </div>
             </div>
 
-            {/* Modal Konfirmasi Hapus */}
-            {filmToDelete && (
-                <div className="modal modal-open" role="dialog">
-                    <div className="modal-box bg-primary">
-                        <h2 className="text-white">Konfirmasi Hapus</h2>
-                        <p className="text-white">Apakah Anda yakin ingin menghapus film ini?</p>
-                        <div className="flex justify-end mt-4">
-                            <button className="btn text-white bg-red-500 hover:bg-red-600" onClick={handleDeleteFilm}>Hapus</button>
-                            <button className="btn text-white bg-gray-500 hover:bg-gray-600 ml-2" onClick={() => setFilmToDelete(null)}>Batal</button>
-                        </div>
-                    </div>
-                    <label className="modal-backdrop" onClick={() => setFilmToDelete(null)}>Close</label>
-                </div>
-            )}
+            {/* Cart2 */}
+            <div className="bg-slate-100/10 mb-[20px] h-full">
+                <div className="p-5 lg:px-[80px] lg:py-[40px]">
+                    <h1 className="text-2xl text-white mb-4">Use State 2 (List Film)</h1>
+                    <div className="flex flex-wrap gap-2 lg:gap-4 ">
+                        {totalFilm.map((e, index) => {
+                            const product = productsRating.find((product) => product.id === e.id);
+                            return (
+                                <Carousel Carousel key={e.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5" >
+                                    <CarouselItem className="m-0 p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                                        <div className="cursor-pointer">
+                                            <Card className="rounded-xl p-0 w-full border-none">
+                                                <CardContent className="flex p-0 items-center justify-center">
+                                                    <TopRatingCard className="" justify="start" children={product.badge} img={product.img} />
+                                                </CardContent>
+                                            </Card>
+                                        </div>
+                                    </CarouselItem>
+                                </Carousel>
+                            )
 
+                        }
+                        )}
+                    </div>
+                </div>
+            </div>
         </div >
 
     )

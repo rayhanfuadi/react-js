@@ -1,0 +1,20 @@
+{
+    "genres":[
+        {
+            "id": 1,
+            "tittle": "Aksi"
+        },
+        {
+            "id": 2,
+            "tittle": "KDrama"
+        },
+        {
+            "id": 3,
+            "tittle": "Anak-anak"
+        },
+        {
+            "id": 4,
+            "tittle": "Komedia"
+        }
+    ]
+}

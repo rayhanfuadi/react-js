@@ -1,5 +1,3 @@
-
-import TontonFilm from '../Fragments/TontonFilm';
 import { useRef, useEffect } from 'react';
 import { register } from 'swiper/element/bundle';
 import Tittle from '../Elements/Tittle/Tittle';
@@ -80,10 +78,10 @@ export const CarouselSwiper = () => {
             <div className="relative h-full">
                 <swiper-container ref={swiperElRef} className="mySwiper w-full h-full" pagination="true" pagination-clickable="true"
                     navigation="true">
-                    {tontonFilm.map((item) => (
-                        <swiper-slide class="rounded-lg text-center flex justify-start items-end text-white">
+                    {tontonFilm.map((item, index) => (
+                        <swiper-slide key={index} className="rounded-lg text-center flex justify-start items-end text-white">
                             <Tittle tittle={item.tittle} rating={item.rating} />
-                            <img class="block w-full h-full object-cover" src={item.img} alt="" />
+                            <img className="block w-full h-full object-cover" src={item.img} alt="" />
                         </swiper-slide>
                     ))}
                 </swiper-container>

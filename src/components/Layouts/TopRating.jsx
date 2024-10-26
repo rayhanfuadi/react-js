@@ -65,14 +65,31 @@ export const TopRating = () => {
 
     return (
         <div className="p-[20px] lg:py-[40px] lg:px-[80px] bg-primary">
+
+            <div className="">
+                <button className="btn" onClick={() => document.getElementById('my_modal_3').showModal()}>open modal</button>
+                <dialog id="my_modal_3" className="modal">
+                    <div className="modal-box bg-primary p-0">
+                        <form method="dialog" className="flex justify-end items-start">
+                            {/* if there is a button in form, it will close the modal */}
+                            <button className="btn btn-sm btn-circle btn-ghost">✕</button>
+                        </form>
+                        <div className="p-3 bg-white">
+                            <p>content</p>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
+
+
             <div className="font-semibold text-white text-[20px] lg:text-[32px] mb-[20px] lg:mb-[32px]">Top Rating Film dan
                 Series Hari
                 ini
             </div>
 
             {/* Pop Up Card */}
-            {productsRating.map((e) => (
-                <div className="">
+            {productsRating.map((e, index) => (
+                <div key={index}>
                     <input type="checkbox" id={`rating_modal_${e.id}`} className="modal-toggle" />
                     <div className="modal" role="dialog">
                         <div className="modal-box bg-primary p-0 w-fit">
@@ -94,8 +111,8 @@ export const TopRating = () => {
                 >
                     <CarouselContent className="relative m-0 flex justify-start gap-x-3 lg:gap-x-6">
 
-                        {productsRating.map((product) => (
-                            <CarouselItem className="p-0 m-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                        {productsRating.map((product, index) => (
+                            <CarouselItem key={index} className="p-0 m-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                 <label htmlFor={`rating_modal_${product.id}`} className="">
                                     <div className="cursor-pointer">
                                         <Card className="rounded-xl p-0 w-full border-none">
