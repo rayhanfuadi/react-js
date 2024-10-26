@@ -11,7 +11,6 @@ import MyList from './Pages/myList';
 import Profile from './Pages/profile';
 import ChangeService from './Pages/changeService';
 import Film from './Pages/Film'
-import MenuTest from './Pages/MenuTest';
 import React from 'react';
 
 const router = createBrowserRouter([
@@ -51,10 +50,6 @@ const router = createBrowserRouter([
     path: "/film",
     element: <Film />
   },
-  {
-    path: "/menutest",
-    element: <MenuTest />
-  }
 ])
 
 createRoot(document.getElementById('root')).render(

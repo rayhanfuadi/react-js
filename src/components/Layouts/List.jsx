@@ -157,11 +157,11 @@ const List = () => {
                 </div>
             </div >
 
-            {/* Cart */}
+            {/* List Film */}
             <div className="bg-slate-100/10 mb-[20px] h-full">
                 <div className="p-5 lg:px-[80px] lg:py-[40px]">
-                    <h1 className="text-2xl text-white mb-4">Use State (List Film)</h1>
-                    <div className="flex flex-wrap gap-2 lg:gap-4 ">
+                    <h1 className="text-3xl font-semibold text-white text-center mb-4 lg:mb-6">List Film</h1>
+                    <div className="flex flex-wrap justify-center gap-3 lg:gap-5 ">
                         {film.length > 0 ? (
                             film.map((item) => (
                                 <Carousel key={item.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
@@ -185,7 +185,7 @@ const List = () => {
                                 </Carousel>
                             ))
                         ) : (
-                            <div className="">kosong</div>
+                            <div className="">List Film Kosong</div>
                         )}
 
                     </div>
