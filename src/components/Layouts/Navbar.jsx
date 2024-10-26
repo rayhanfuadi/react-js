@@ -14,6 +14,7 @@ const Navbar = () => {
                     <a className="text-[14px] lg:text-[18px]" href="/home">Series</a>
                     <a className="text-[14px] lg:text-[18px]" href="/film">Film</a>
                     <a className="text-[14px] lg:text-[18px]" href="/list">Daftar Saya</a>
+                    <a className="text-[14px] lg:text-[18px]" href="/menutest">Test</a>
                 </div>
                 <div className="flex items-center text-white text-[14px] lg:text-[18px]">
                     Hi, {username}
