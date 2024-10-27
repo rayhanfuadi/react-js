@@ -1,7 +1,7 @@
 const Tittle = (props) => {
     const { tittle, rating } = props
     return (
-        <div className="absolute w-full flex p-[16px] justify-between">
+        <div className="absolute w-full flex p-[16px] bottom-0 justify-between text-white">
             <div className="flex">
                 <p className="font-semibold text-[14px] lg:text-[18px]">{tittle}</p>
             </div>
