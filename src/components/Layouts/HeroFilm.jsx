@@ -1,27 +1,14 @@
 "use client"
 
-import * as React from "react"
-import { useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuLabel,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import Api from "@/api/genre-api"
 
 
-const HeroFilm = (props) => {
-    const { hero } = props
-    useEffect(() => {
-        Api.get('/genres').then((res) => {
-            console.log(res)
-        })
-    }, [])
+const HeroFilm = () => {
 
     const genre = [
         {
@@ -94,7 +81,7 @@ const HeroFilm = (props) => {
                     <div className="grid gap-2 lg:gap-5">
                         <div className="text-white text-[24px] lg:text-[48px] lg:font-semibold md:text-[36px]">Avatar 3</div>
                         <p
-                            className="text-white text-[12px] lg:h-auto lg:w-[668px] md:w-[668px] lg:text-[18px] md:text-[16px] h-[40px] text-truncate overflow-hidden">"Avatar 3" melanjutkan cerita konflik antara manusia dan Na'vi di planet Pandora. Dalam pertempuran untuk sumber daya dan kekuasaan, manusia dan sekutu Na'vi bersatu untuk melindungi tanah mereka. Film ini mengangkat tema persatuan dan perlawanan terhadap eksploitasi.</p>
+                            className="text-white text-[12px] lg:h-auto lg:w-[668px] md:w-[668px] lg:text-[18px] md:text-[16px] h-[40px] text-truncate overflow-hidden">Avatar 3 melanjutkan cerita konflik antara manusia dan Navi di planet Pandora. Dalam pertempuran untuk sumber daya dan kekuasaan, manusia dan sekutu Navi bersatu untuk melindungi tanah mereka. Film ini mengangkat tema persatuan dan perlawanan terhadap eksploitasi.</p>
                     </div>
                     <div className="w-full flex justify-between text-white z-30">
                         <div className="flex gap-2">
@@ -112,7 +99,7 @@ const HeroFilm = (props) => {
                 </div>
             </div>
             <div className="w-full relative lg:h-[600px]">
-                <img className="w-full lg:object-cover lg:h-[590px]" src={`img/film/${hero}`} alt="" />
+                <img className="w-full lg:object-cover lg:h-[590px]" src={`img/film/avatar.png`} alt="" />
             </div>
         </div>
     )

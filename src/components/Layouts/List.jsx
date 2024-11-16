@@ -8,7 +8,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
-import * as React from "react"
+// import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
 
@@ -65,7 +65,7 @@ const productsRating = [
 
 const List = () => {
     const [film, setFilm] = useState([])
-    const [totalFilm, setTotalFilm] = useState([])
+    // const [totalFilm, setTotalFilm] = useState([])
     const [filmToDelete, setFilmToDelete] = useState(null);
 
     useEffect(() => {

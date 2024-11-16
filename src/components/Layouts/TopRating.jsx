@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect } from "react"
 import BadgeBiru from "../Elements/Badges/Badge"
 import {
     Carousel,
@@ -10,6 +10,7 @@ import {
 import TopRatingCard from "../Fragments/TopRatingCard"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
+import { getFilm } from "@/services/film.services"
 
 export const TopRating = () => {
     const productsRating = [
@@ -63,24 +64,14 @@ export const TopRating = () => {
         }
     ]
 
+    useEffect(() => {
+        getFilm((data) => {
+            console.log(data);
+        })
+    }, [])
+
     return (
         <div className="p-[20px] lg:py-[40px] lg:px-[80px] bg-primary">
-
-            <div className="">
-                <button className="btn" onClick={() => document.getElementById('my_modal_3').showModal()}>open modal</button>
-                <dialog id="my_modal_3" className="modal">
-                    <div className="modal-box bg-primary p-0">
-                        <form method="dialog" className="flex justify-end items-start">
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn btn-sm btn-circle btn-ghost">✕</button>
-                        </form>
-                        <div className="p-3 bg-white">
-                            <p>content</p>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-
 
             <div className="font-semibold text-white text-[20px] lg:text-[32px] mb-[20px] lg:mb-[32px]">Top Rating Film dan
                 Series Hari

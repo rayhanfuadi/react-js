@@ -11,7 +11,7 @@ import MyList from './Pages/myList';
 import Profile from './Pages/profile';
 import ChangeService from './Pages/changeService';
 import Film from './Pages/Film'
-import React from 'react';
+// import React from 'react';
 
 const router = createBrowserRouter([
   {
