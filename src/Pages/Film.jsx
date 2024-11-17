@@ -13,7 +13,7 @@ const Film = () => {
             <Navbar />
 
             {/* HeroSection */}
-            <HeroFilm hero="avatar.png" />
+            <HeroFilm />
 
             {/* Carousel Swipper JS */}
             <CarouselSwiper />

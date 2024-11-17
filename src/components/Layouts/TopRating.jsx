@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import BadgeBiru from "../Elements/Badges/Badge"
 import {
     Carousel,
@@ -10,77 +10,77 @@ import {
 import TopRatingCard from "../Fragments/TopRatingCard"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
+import { getTopRating } from "@/services/topFilm.services"
 
 export const TopRating = () => {
-    const productsRating = [
-        {
-            id: 1,
-            tittle: "Suzume",
-            badge: <BadgeBiru />,
-            img: "img/film/t1.png",
-        },
-        {
-            id: 2,
-            tittle: "Jurassic World",
-            badge: <BadgeBiru />,
-            img: "img/film/t2.png",
-        },
-        {
-            id: 3,
-            tittle: "Sonic 2",
-            badge: <BadgeBiru />,
-            img: "img/film/t3.png",
-        },
-        {
-            id: 4,
-            tittle: "All Of Us Are Dead",
-            badge: <BadgeBiru />,
-            img: "img/film/t4.png",
-        },
-        {
-            id: 5,
-            tittle: "Big Hero 6",
-            badge: <BadgeBiru />,
-            img: "img/film/t5.png",
-        },
-        {
-            id: 6,
-            tittle: "Suzume",
-            badge: <BadgeBiru />,
-            img: "img/film/t6.png",
-        },
-        {
-            id: 7,
-            tittle: "Jurassic World",
-            badge: <BadgeBiru />,
-            img: "img/film/t2.png",
-        },
-        {
-            id: 8,
-            tittle: "Sonic 2",
-            badge: <BadgeBiru />,
-            img: "img/film/t3.png",
-        }
-    ]
+    // const productsRating = [
+    //     {
+    //         id: 1,
+    //         tittle: "Suzume",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t1.png",
+    //     },
+    //     {
+    //         id: 2,
+    //         tittle: "Jurassic World",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t2.png",
+    //     },
+    //     {
+    //         id: 3,
+    //         tittle: "Sonic 2",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t3.png",
+    //     },
+    //     {
+    //         id: 4,
+    //         tittle: "All Of Us Are Dead",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t4.png",
+    //     },
+    //     {
+    //         id: 5,
+    //         tittle: "Big Hero 6",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t5.png",
+    //     },
+    //     {
+    //         id: 6,
+    //         tittle: "Suzume",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t6.png",
+    //     },
+    //     {
+    //         id: 7,
+    //         tittle: "Jurassic World",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t2.png",
+    //     },
+    //     {
+    //         id: 8,
+    //         tittle: "Sonic 2",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t3.png",
+    //     }
+    // ]
+
+
+    const badgeComponents = {
+        BadgeBiru: <BadgeBiru />,
+    }
+    const RenderBadge = ({ badgeName }) => {
+        return badgeComponents[badgeName] || null;
+    }
+
+    const [productsRating, setProductsRating] = useState([])
+    useEffect(() => {
+        getTopRating((data) => {
+            setProductsRating(data)
+        })
+    }, [])
 
     return (
         <div className="p-[20px] lg:py-[40px] lg:px-[80px] bg-primary">
-
-            <div className="">
-                <button className="btn" onClick={() => document.getElementById('my_modal_3').showModal()}>open modal</button>
-                <dialog id="my_modal_3" className="modal">
-                    <div className="modal-box bg-primary p-0">
-                        <form method="dialog" className="flex justify-end items-start">
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn btn-sm btn-circle btn-ghost">✕</button>
-                        </form>
-                        <div className="p-3 bg-white">
-                            <p>content</p>
-                        </div>
-                    </div>
-                </dialog>
-            </div>
-
 
             <div className="font-semibold text-white text-[20px] lg:text-[32px] mb-[20px] lg:mb-[32px]">Top Rating Film dan
                 Series Hari
@@ -117,7 +117,7 @@ export const TopRating = () => {
                                     <div className="cursor-pointer">
                                         <Card className="rounded-xl p-0 w-full border-none">
                                             <CardContent className="flex p-0 items-center justify-center">
-                                                <TopRatingCard className="" justify="start" children={product.badge} img={product.img} />
+                                                <TopRatingCard className="" justify="start" children={<RenderBadge badgeName={product.badge} />} img={product.img} />
                                             </CardContent>
                                         </Card>
                                     </div>

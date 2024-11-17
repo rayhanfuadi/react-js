@@ -7,70 +7,86 @@ import {
 } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
 import TopRatingCard from "../Fragments/TopRatingCard"
-import * as React from "react"
 
 import BadgeBiru from "../Elements/Badges/Badge"
 import RilisCard from "../Fragments/RilisCard"
 import BadgeMerah from "../Elements/Badges/BadgeMerah"
 import PopUpCard from "../Fragments/popUpCard"
+import { useEffect, useState } from "react"
+import { getRilisBaru } from "@/services/rilisBaru.services"
 const RilisBaru = () => {
 
-    const productsRilis = [
-        {
-            id: 1,
-            tittle: "The Little Mermaid",
-            badge: <BadgeMerah />,
-            img: "img/film/r1.png",
-            justify: "end",
-        },
-        {
-            id: 2,
-            tittle: "Duty After School",
-            badge: <BadgeBiru />,
-            img: "img/film/r2.png",
-            justify: "start",
-        },
-        {
-            id: 3,
-            tittle: "Big Hero 6",
-            badge: <BadgeBiru />,
-            img: "img/film/r3.png",
-        },
-        {
-            id: 4,
-            tittle: "All Of Us Are Dead",
-            badge: <BadgeBiru />,
-            img: "img/film/r4.png",
-            justify: "start",
-        },
-        {
-            id: 5,
-            tittle: "Missing",
-            badge: <BadgeBiru />,
-            img: "img/film/r5.png",
-            justify: "start",
-        },
-        {
-            id: 6,
-            tittle: "The Little Mermaid",
-            badge: <BadgeMerah />,
-            img: "img/film/r6.png",
-            justify: "end",
-        },
-        {
-            id: 7,
-            tittle: "Duty After School",
-            badge: <BadgeBiru />,
-            img: "img/film/r7.png",
-            justify: "start",
-        },
-        {
-            id: 8,
-            tittle: "Big Hero 6",
-            badge: <BadgeBiru />,
-            img: "img/film/r8.png",
-        },
-    ]
+    // const productsRilis = [
+    //     {
+    //         id: 1,
+    //         tittle: "The Little Mermaid",
+    //         badge: <BadgeMerah />,
+    //         img: "img/film/r1.png",
+    //         justify: "end",
+    //     },
+    //     {
+    //         id: 2,
+    //         tittle: "Duty After School",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/r2.png",
+    //         justify: "start",
+    //     },
+    //     {
+    //         id: 3,
+    //         tittle: "Big Hero 6",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/r3.png",
+    //     },
+    //     {
+    //         id: 4,
+    //         tittle: "All Of Us Are Dead",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/r4.png",
+    //         justify: "start",
+    //     },
+    //     {
+    //         id: 5,
+    //         tittle: "Missing",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/r5.png",
+    //         justify: "start",
+    //     },
+    //     {
+    //         id: 6,
+    //         tittle: "The Little Mermaid",
+    //         badge: <BadgeMerah />,
+    //         img: "img/film/r6.png",
+    //         justify: "end",
+    //     },
+    //     {
+    //         id: 7,
+    //         tittle: "Duty After School",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/r7.png",
+    //         justify: "start",
+    //     },
+    //     {
+    //         id: 8,
+    //         tittle: "Big Hero 6",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/r8.png",
+    //     },
+    // ]
+
+    const badgeComponents = {
+        BadgeBiru: <BadgeBiru />,
+        BadgeMerah: <BadgeMerah />,
+    }
+    const RenderBadge = ({ badgeName }) => {
+        return badgeComponents[badgeName] || null;
+    }
+
+    const [productsRilis, setProductsRating] = useState([])
+    useEffect(() => {
+        getRilisBaru((data) => {
+            setProductsRating(data)
+        })
+    }, [])
 
     return (
         <div className="p-[20px] lg:py-[40px] lg:px-[80px] bg-primary">
@@ -104,7 +120,7 @@ const RilisBaru = () => {
                                     <div className="cursor-pointer">
                                         <Card className="rounded-xl p-0 w-full border-none">
                                             <CardContent className="flex p-0 items-center justify-center">
-                                                <TopRatingCard className="" justify={product.justify} children={product.badge} img={product.img} />
+                                                <TopRatingCard className="" justify={product.justify} children={<RenderBadge badgeName={product.badge} />} img={product.img} />
                                             </CardContent>
                                         </Card>
                                     </div>

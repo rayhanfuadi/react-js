@@ -1,13 +1,11 @@
-import { Section } from "lucide-react";
-
-const flowbite = require("flowbite-react/tailwind");
+import flowbite from "flowbite/plugin";
+import daisyui from "daisyui";
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     "./node_modules/flowbite/**/*.js",
-    flowbite.content(),
   ],
   theme: {
     extend: {
@@ -18,13 +16,11 @@ export default {
         primary: '#181A1C',
         secondary: '#3254FF',
         gray: '#C1C2C4',
-
-      }
+      },
     },
   },
   plugins: [
-    flowbite.plugin(),
-    require('daisyui'),
+    flowbite,
+    daisyui,
   ],
-}
-
+};

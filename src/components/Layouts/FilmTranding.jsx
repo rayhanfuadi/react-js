@@ -1,4 +1,3 @@
-import ShadcnCarousel from "../Shadcn/ShadcnCarousel"
 import BadgeMerah from "../Elements/Badges/BadgeMerah"
 import {
     Carousel,
@@ -10,59 +9,75 @@ import {
 import TopRatingCard from "../Fragments/TopRatingCard"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
+import { useState, useEffect } from "react"
+import { getFilmTranding } from "@/services/filmTranding.services"
 
 export const FilmTranding = () => {
 
-    const productsTranding = [
-        {
-            id: 1,
-            tittle: "The Tomorrow War",
-            badge: <BadgeMerah />,
-            img: "img/film/f1.png",
-        },
-        {
-            id: 2,
-            tittle: "Quantumania",
-            badge: <BadgeMerah />,
-            img: "img/film/f2.png",
-        },
-        {
-            id: 3,
-            tittle: "Guardian Of Galaxy Vol III",
-            badge: <BadgeMerah />,
-            img: "img/film/f3.png",
-        },
-        {
-            id: 4,
-            tittle: "A Man Called Otto",
-            badge: <BadgeMerah />,
-            img: "img/film/f4.png",
-        },
-        {
-            id: 5,
-            tittle: "Little Mermaid",
-            badge: <BadgeMerah />,
-            img: "img/film/f5.png",
-        },
-        {
-            id: 6,
-            tittle: "The Tomorrow War",
-            badge: <BadgeMerah />,
-            img: "img/film/f6.png",
-        },
-        {
-            id: 7,
-            tittle: "Quantumania",
-            badge: <BadgeMerah />,
-            img: "img/film/f2.png",
-        },
-        {
-            id: 8,
-            tittle: "Guardian Of Galaxy Vol III",
-            badge: <BadgeMerah />,
-            img: "img/film/f3.png",
-        },
-    ]
+    // const productsTranding = [
+    //     {
+    //         id: 1,
+    //         tittle: "The Tomorrow War",
+    //         badge: <BadgeMerah />,
+    //         img: "img/film/f1.png",
+    //     },
+    //     {
+    //         id: 2,
+    //         tittle: "Quantumania",
+    //         badge: <BadgeMerah />,
+    //         img: "img/film/f2.png",
+    //     },
+    //     {
+    //         id: 3,
+    //         tittle: "Guardian Of Galaxy Vol III",
+    //         badge: <BadgeMerah />,
+    //         img: "img/film/f3.png",
+    //     },
+    //     {
+    //         id: 4,
+    //         tittle: "A Man Called Otto",
+    //         badge: <BadgeMerah />,
+    //         img: "img/film/f4.png",
+    //     },
+    //     {
+    //         id: 5,
+    //         tittle: "Little Mermaid",
+    //         badge: <BadgeMerah />,
+    //         img: "img/film/f5.png",
+    //     },
+    //     {
+    //         id: 6,
+    //         tittle: "The Tomorrow War",
+    //         badge: <BadgeMerah />,
+    //         img: "img/film/f6.png",
+    //     },
+    //     {
+    //         id: 7,
+    //         tittle: "Quantumania",
+    //         badge: <BadgeMerah />,
+    //         img: "img/film/f2.png",
+    //     },
+    //     {
+    //         id: 8,
+    //         tittle: "Guardian Of Galaxy Vol III",
+    //         badge: <BadgeMerah />,
+    //         img: "img/film/f3.png",
+    //     },
+    // ]
+
+    const badgeComponents = {
+        BadgeMerah: <BadgeMerah />,
+    }
+    const RenderBadge = ({ badgeName }) => {
+        return badgeComponents[badgeName] || null;
+    }
+
+    const [productsTranding, setProductsRating] = useState([])
+    useEffect(() => {
+        getFilmTranding((data) => {
+            setProductsRating(data)
+        })
+    }, [])
 
     return (
         <div className="p-[20px] lg:py-[40px] lg:px-[80px] bg-primary">
@@ -97,7 +112,7 @@ export const FilmTranding = () => {
                                     <div className="cursor-pointer">
                                         <Card className="rounded-xl p-0 w-full border-none">
                                             <CardContent className="flex p-0 items-center justify-center">
-                                                <TopRatingCard className="" justify="end" children={product.badge} img={product.img} />
+                                                <TopRatingCard className="" justify="end" children={<RenderBadge badgeName={product.badge} />} img={product.img} />
                                             </CardContent>
                                         </Card>
                                     </div>
@@ -112,9 +127,6 @@ export const FilmTranding = () => {
                     </div>
                 </Carousel>
             </div >
-
-
-
         </div >
     )
 }
