@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useState, useEffect } from "react"
 import BadgeBiru from "../Elements/Badges/Badge"
 import {
     Carousel,
@@ -10,63 +10,72 @@ import {
 import TopRatingCard from "../Fragments/TopRatingCard"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
-import { getFilm } from "@/services/film.services"
+import { getTopRating } from "@/services/topFilm.services"
 
 export const TopRating = () => {
-    const productsRating = [
-        {
-            id: 1,
-            tittle: "Suzume",
-            badge: <BadgeBiru />,
-            img: "img/film/t1.png",
-        },
-        {
-            id: 2,
-            tittle: "Jurassic World",
-            badge: <BadgeBiru />,
-            img: "img/film/t2.png",
-        },
-        {
-            id: 3,
-            tittle: "Sonic 2",
-            badge: <BadgeBiru />,
-            img: "img/film/t3.png",
-        },
-        {
-            id: 4,
-            tittle: "All Of Us Are Dead",
-            badge: <BadgeBiru />,
-            img: "img/film/t4.png",
-        },
-        {
-            id: 5,
-            tittle: "Big Hero 6",
-            badge: <BadgeBiru />,
-            img: "img/film/t5.png",
-        },
-        {
-            id: 6,
-            tittle: "Suzume",
-            badge: <BadgeBiru />,
-            img: "img/film/t6.png",
-        },
-        {
-            id: 7,
-            tittle: "Jurassic World",
-            badge: <BadgeBiru />,
-            img: "img/film/t2.png",
-        },
-        {
-            id: 8,
-            tittle: "Sonic 2",
-            badge: <BadgeBiru />,
-            img: "img/film/t3.png",
-        }
-    ]
+    // const productsRating = [
+    //     {
+    //         id: 1,
+    //         tittle: "Suzume",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t1.png",
+    //     },
+    //     {
+    //         id: 2,
+    //         tittle: "Jurassic World",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t2.png",
+    //     },
+    //     {
+    //         id: 3,
+    //         tittle: "Sonic 2",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t3.png",
+    //     },
+    //     {
+    //         id: 4,
+    //         tittle: "All Of Us Are Dead",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t4.png",
+    //     },
+    //     {
+    //         id: 5,
+    //         tittle: "Big Hero 6",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t5.png",
+    //     },
+    //     {
+    //         id: 6,
+    //         tittle: "Suzume",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t6.png",
+    //     },
+    //     {
+    //         id: 7,
+    //         tittle: "Jurassic World",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t2.png",
+    //     },
+    //     {
+    //         id: 8,
+    //         tittle: "Sonic 2",
+    //         badge: <BadgeBiru />,
+    //         img: "img/film/t3.png",
+    //     }
+    // ]
 
+
+    const badgeComponents = {
+        BadgeBiru: <BadgeBiru />,
+    }
+    const RenderBadge = ({ badgeName }) => {
+        return badgeComponents[badgeName] || null;
+    }
+
+    const [productsRating, setProductsRating] = useState([])
     useEffect(() => {
-        getFilm((data) => {
-            console.log(data);
+        getTopRating((data) => {
+            setProductsRating(data)
         })
     }, [])
 
@@ -108,7 +117,7 @@ export const TopRating = () => {
                                     <div className="cursor-pointer">
                                         <Card className="rounded-xl p-0 w-full border-none">
                                             <CardContent className="flex p-0 items-center justify-center">
-                                                <TopRatingCard className="" justify="start" children={product.badge} img={product.img} />
+                                                <TopRatingCard className="" justify="start" children={<RenderBadge badgeName={product.badge} />} img={product.img} />
                                             </CardContent>
                                         </Card>
                                     </div>

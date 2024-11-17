@@ -8,7 +8,6 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
-// import * as React from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
 
@@ -72,7 +71,6 @@ const List = () => {
         const storedFilm = JSON.parse(localStorage.getItem('film')) || []
         setFilm(storedFilm)
     }, [])
-
 
     const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
         const newFilmItem = {

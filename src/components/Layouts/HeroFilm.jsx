@@ -6,54 +6,62 @@ import {
     DropdownMenuContent,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { getGenre } from "@/services/genre.services"
+import { useState, useEffect } from "react"
 
 
 const HeroFilm = () => {
+    // const genre = [
+    //     {
+    //         tittle: "Aksi",
+    //     },
+    //     {
+    //         tittle: "KDrama",
+    //     },
+    //     {
+    //         tittle: "Anak-anak",
+    //     },
+    //     {
+    //         tittle: "Komedia",
+    //     },
+    //     {
+    //         tittle: "Anime",
+    //     },
+    //     {
+    //         tittle: "Petualangan",
+    //     },
+    //     {
+    //         tittle: "Britania",
+    //     },
+    //     {
+    //         tittle: "Perang",
+    //     },
+    //     {
+    //         tittle: "Drama",
+    //     },
+    //     {
+    //         tittle: "Romantis",
+    //     },
+    //     {
+    //         tittle: "Fantasi Ilmiah & Fantasi",
+    //     },
+    //     {
+    //         tittle: "Sains & Alama",
+    //     },
+    //     {
+    //         tittle: "Kejahatan",
+    //     },
+    //     {
+    //         tittle: "Thriller",
+    //     },
+    // ]
 
-    const genre = [
-        {
-            tittle: "Aksi",
-        },
-        {
-            tittle: "KDrama",
-        },
-        {
-            tittle: "Anak-anak",
-        },
-        {
-            tittle: "Komedia",
-        },
-        {
-            tittle: "Anime",
-        },
-        {
-            tittle: "Petualangan",
-        },
-        {
-            tittle: "Britania",
-        },
-        {
-            tittle: "Perang",
-        },
-        {
-            tittle: "Drama",
-        },
-        {
-            tittle: "Romantis",
-        },
-        {
-            tittle: "Fantasi Ilmiah & Fantasi",
-        },
-        {
-            tittle: "Sains & Alama",
-        },
-        {
-            tittle: "Kejahatan",
-        },
-        {
-            tittle: "Thriller",
-        },
-    ]
+    const [genre, setGenre] = useState([])
+    useEffect(() => {
+        getGenre((data) => {
+            setGenre(data)
+        })
+    }, [])
 
     return (
         <div className="container-xl relative">
