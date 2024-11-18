@@ -78,17 +78,27 @@ const useAuthStore = create((set) => ({
         }
     },
 
-
     // Update password function
     updatePassword: async (id, newPassword) => {
         set({ loading: true, error: null });
         try {
             const { data } = await axios.put(`${API_URL}/${id}`, { password: newPassword });
+            console.log("API Response:", data); // Debugging
             set((state) => ({ user: { ...state.user, password: data.password }, loading: false }));
             return true;
         } catch (err) {
+            console.error("Update Password Error:", err.message);
             set({ error: err.message, loading: false });
             return false;
+        }
+    },
+
+    syncUser: async (id) => {
+        try {
+            const { data } = await axios.get(`${API_URL}/${id}`);
+            set({ user: data }); // Update data user di store
+        } catch (err) {
+            console.error("Failed to sync user data:", err);
         }
     },
 
@@ -121,7 +131,6 @@ const useAuthStore = create((set) => ({
             set({ user: null, isLoggedIn: false });
         }
     },
-
 
 }));
 
