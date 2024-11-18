@@ -1,50 +1,67 @@
+import useAuthStore from "@/stores/authStore"
 import ButtonAuth from "../Elements/Button/ButtonAuth"
 import ButtonAuth2 from "../Elements/Button/ButtonAuth2"
 import InputPassword from "../Elements/InputPassword/InputPassword"
 import InputUser from "../Elements/InputUser/InputUser"
 import Label from "../Elements/InputUser/Label"
+import { useState } from "react"
+import { useNavigate } from 'react-router-dom';
 
 const FormLogin = () => {
-    const handleLogin = (e) => {
-        e.preventDefault()
-        localStorage.setItem("username", e.target.username.value)
-        localStorage.setItem("password", e.target.password.value)
-        console.log('login')
-        window.location.href = "/home"
-    }
+    const { login, error, loading } = useAuthStore();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+
+        const success = await login(email, password);
+        if (success) {
+            alert('Login successful!');
+            navigate('/home'); // Arahkan ke halaman home setelah login berhasil
+        } else {
+            alert(error || 'Login failed.');
+        }
+    };
+
     return (
-        <form className="grid gap-[20px] lg:gap-[36px]" onSubmit={handleLogin}>
-            {/* Username */}
-            <div className="grid gap-2">
-                <Label label="Username" />
-                <InputUser
-                    label="Email"
-                    type="text"
-                    placeholder="Masukkan Username"
-                    name="username"
-                />
-            </div>
-            {/* Password */}
-            <div className="grid gap-2">
-                <Label label="Password" htmlFor="Password" />
-                <InputPassword
-                    label="Password"
-                    type="password"
-                    placeholder="Masukkan Password"
-                    name="password"
-                />
-                <div className="flex justify-between px-2 text-[12px] lg:text-[16px]">
-                    <a href="/regist"><span class="opacity-70">belum punya
-                        akun?</span> Daftar</a>
-                    <a href="#">Lupa Kata sandi</a>
+        <>
+            <form className="grid gap-[20px] lg:gap-[36px] onSubmit={handleLogin}">
+                {/* Email */}
+                <div className="grid gap-2">
+                    <Label label="Email" />
+                    <InputUser
+                        label="Email"
+                        type="email"
+                        placeholder="Masukkan Email anda"
+                        name="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                 </div>
-            </div>
-            <div className="flex flex-col gap-y-2">
-                <ButtonAuth tittle="Masuk" href="#" type="submit" />
-                <p className="text-center">atau</p>
-                <ButtonAuth2 tittle="Masuk Dengan Google" href="#" />
-            </div>
-        </form>
+                {/* Password */}
+                <div className="grid gap-2">
+                    <Label label="Password" htmlFor="Password" />
+                    <InputPassword
+                        label="Password"
+                        type="password"
+                        placeholder="Masukkan Password"
+                        name="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <div className="flex justify-between px-2 text-[12px] lg:text-[16px]">
+                        <a href="/regist"><span className="opacity-70">belum punya
+                            akun?</span> Daftar</a>
+                        <a href="#">Lupa Kata sandi</a>
+                    </div>
+                </div>
+                <div className="flex flex-col gap-y-2">
+                    <ButtonAuth tittle={loading ? 'Loading...' : 'Login'} type="submit" onClick={handleLogin} disable={loading} />
+                    <p className="text-center">atau</p>
+                    <ButtonAuth2 tittle="Masuk Dengan Google" href="#" />
+                </div>
+            </form>
+        </>
     )
 }
 

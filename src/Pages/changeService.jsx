@@ -1,4 +1,15 @@
+import useAuthStore from "@/stores/authStore";
+import { useEffect } from "react";
+import RedirectLogin from "./RedirectLogin";
+
 const ChangeService = () => {
+    const { isLoggedIn, checkSession } = useAuthStore();
+    useEffect(() => {
+        checkSession();
+    }, [checkSession]);
+    if (!isLoggedIn) {
+        return <RedirectLogin />;
+    }
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="grid justify-center ">

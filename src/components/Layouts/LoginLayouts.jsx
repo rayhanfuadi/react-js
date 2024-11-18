@@ -1,8 +1,7 @@
-import Button from "../Elements/Button/Index"
 import FormLogin from "../Fragments/FormLogin"
 
 const LoginLayouts = (props) => {
-    const { tittle, text, textButton1, textButton2 } = props
+    const { tittle, text } = props
     return (
         <div className="flex justify-center items-center h-full p-[30px]">
             <div
