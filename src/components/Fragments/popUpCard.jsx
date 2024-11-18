@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import BadgeBiru from "../Elements/Badges/Badge"
 
 const PopUpCard = (props) => {
-    const { id, tittle, img } = props
+    const { tittle, img } = props
 
     const [film, setFilm] = useState([
         {

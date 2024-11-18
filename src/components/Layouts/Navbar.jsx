@@ -18,7 +18,7 @@ const Navbar = () => {
                     <a className="text-[14px] lg:text-[18px]" href="/admin">Admin</a>
                 </div>
                 <div className="flex items-center text-white text-[14px] lg:text-[18px]">
-                    Hi,{user?.username}
+                    Hi, {``}{user?.username}
                     <MenuBar />
                 </div>
             </div>

@@ -16,12 +16,18 @@ const FormLogin = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
+        // Validasi input
+        if (!email || !password) {
+            alert('Email dan password tidak boleh kosong.');
+            return; // Hentikan eksekusi jika input kosong
+        }
+
         const success = await login(email, password);
         if (success) {
-            alert('Login successful!');
+            alert('Login berhasil!');
             navigate('/home'); // Arahkan ke halaman home setelah login berhasil
         } else {
-            alert(error || 'Login failed.');
+            alert(error || 'Login gagal. Email atau password salah.');
         }
     };
 

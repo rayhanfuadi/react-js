@@ -15,12 +15,15 @@ export const MenuBar = () => {
         logout();
         navigate('/login');
     };
+
+    const user = useAuthStore((state) => state.user);
     return (
         <div className="relative flex justify-end">
             <DropdownMenu className="flex justify-end w-full">
                 <DropdownMenuTrigger asChild className="border-none hover:bg-transparent active:outline-none active:border-none text-white">
                     <Button variant="outline" className="flex items-center gap-2">
-                        <img className="w-[24px] h-[24px] lg:w-[40px] lg:h-[40px]" src="img/pengguna.png" alt="" />
+                        {/* <img className="w-[24px] h-[24px] lg:w-[40px] lg:h-[40px] rounded-full" src="img/pengguna.png" alt="" /> */}
+                        <img className="w-[24px] h-[24px] lg:w-[40px] lg:h-[40px] rounded-full" src={user?.avatar} alt="" />
                         <img className="w-[24px] h-[24px] lg:w-[24px] lg:h-[24px]" src=" img/arrowDown.svg" alt="" />
                     </Button>
                 </DropdownMenuTrigger>

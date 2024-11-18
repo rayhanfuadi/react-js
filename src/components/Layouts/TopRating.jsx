@@ -64,7 +64,6 @@ export const TopRating = () => {
     //     }
     // ]
 
-
     const badgeComponents = {
         BadgeBiru: <BadgeBiru />,
     }
