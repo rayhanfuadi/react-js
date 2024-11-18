@@ -16,9 +16,9 @@ const HeroSection = (props) => {
                     perang.</p>
                 <div className="w-full flex justify-between text-white z-30">
                     <div className="flex gap-2">
-                        <a className="py-1 px-3 flex items-center justify-center bg-blue-600 rounded-full font-semibold text-[12px] lg:text-[16px] md:text-[14px]"
+                        <a className="py-1 px-3 flex items-center justify-center bg-blue-600 hover:bg-blue-800 rounded-full font-semibold text-[12px] lg:text-[16px] md:text-[14px]"
                             href="">Mulai</a>
-                        <a className="py-1 px-3 flex items-center justify-center bg-slate-800 rounded-full font-semibold text-[12px] lg:text-[16px] md:text-[14px]"
+                        <a className="py-1 px-3 flex items-center justify-center bg-slate-800 hover:bg-slate-900 rounded-full font-semibold text-[12px] lg:text-[16px] md:text-[14px]"
                             href="">Selengkapnya</a>
                         <a className="py-1 px-3 flex items-center justify-center bg-none border-[1px] border-white rounded-full font-semibold text-[12px] lg:text-[16px] md:text-[14px]"
                             href="">18+</a>

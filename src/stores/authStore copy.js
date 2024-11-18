@@ -90,18 +90,6 @@ const useAuthStore = create((set) => ({
         }
     },
 
-    // Update username function
-    updateUsername: async (id, newUsername) => {
-        try {
-            const { data } = await axios.put(`${API_URL}/${id}`, { username: newUsername });
-            set((state) => ({ user: { ...state.user, username: data.username } }));
-            return true;
-        } catch (err) {
-            console.error("Error updating username:", err);
-            return false;
-        }
-    },
-
     // Fungsi sinkronisasi user dari API
     syncUser: async (id) => {
         try {
