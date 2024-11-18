@@ -1,24 +1,20 @@
-"use client"
-
-import * as React from "react"
 
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuLabel,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import useAuthStore from "@/stores/authStore"
+import { useNavigate } from "react-router-dom";
 export const MenuBar = () => {
-    const [position, setPosition] = React.useState("bottom")
+    const { logout } = useAuthStore();
+    const navigate = useNavigate();
     const handleLogout = () => {
-        window.location.href = "/login"
-        localStorage.removeItem("username")
-        localStorage.removeItem("password")
-    }
+        logout();
+        navigate('/login');
+    };
     return (
         <div className="relative flex justify-end">
             <DropdownMenu className="flex justify-end w-full">
@@ -41,10 +37,10 @@ export const MenuBar = () => {
                             Ubah Premium
                         </a>
                     </DropdownMenuLabel>
-                    <button onClick={handleLogout} href="/login">
+                    <button onClick={handleLogout}>
                         <DropdownMenuLabel className="w-[150px] flex items-center gap-2 px-[12px] py-[8px] hover:bg-[#0f1011] hover:text-indigo-500 cursor-pointer">
                             <img className="w-[20px]" src="img/logout.svg" alt="" />
-                            Keluar
+                            Logout
                         </DropdownMenuLabel>
                     </button>
                 </DropdownMenuContent>

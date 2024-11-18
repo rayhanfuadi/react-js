@@ -5,8 +5,19 @@ import FilmTranding from "@/components/Layouts/FilmTranding";
 import RilisBaru from "@/components/Layouts/RilisBaru";
 import Footer from "@/components/Layouts/Footer";
 import HeroFilm from "@/components/Layouts/HeroFilm";
+import useAuthStore from "@/stores/authStore";
+import { useEffect } from "react";
+import RedirectLogin from "./RedirectLogin";
 
 const Film = () => {
+    const { isLoggedIn, checkSession } = useAuthStore();
+    useEffect(() => {
+        checkSession();
+    }, [checkSession]);
+    if (!isLoggedIn) {
+        return <RedirectLogin />;
+    }
+
     return (
         <div className="bg-primary">
             {/* Navbar Start */}

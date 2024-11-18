@@ -3,13 +3,24 @@ import Service from "@/components/Fragments/Service"
 import Footer from "@/components/Layouts/Footer"
 import List from "@/components/Layouts/List"
 import Navbar from "@/components/Layouts/Navbar"
+import useAuthStore from "@/stores/authStore"
+import { useEffect } from "react"
+import RedirectLogin from "./RedirectLogin"
+
 
 const Profile = () => {
-    const username = localStorage.getItem("username")
+    const { isLoggedIn, checkSession } = useAuthStore();
+    useEffect(() => {
+        checkSession();
+    }, [checkSession]);
+    if (!isLoggedIn) {
+        return <RedirectLogin />;
+    }
+
+    const user = useAuthStore((state) => state.user)
     return (
         <div className="bg-primary h-full">
             <Navbar />
-
             <div className="grid gap-5 p-5 lg:px-[80px] lg:py-[40px] lg:grid lg:grid-cols-12">
                 <div className="lg:col-span-6 lg:order-last lg:ml-[80px]">
                     <Service />
@@ -35,7 +46,7 @@ const Profile = () => {
                             <div className="grid w-full gap-1">
                                 <p className="text-[#9D9EA1] text-[14px] lg:text-[16px]">Nama Pengguna</p>
                                 {/* <input className="p-0 m-0 bg-transparent outline-none" type="text" placeholder="William" /> */}
-                                <p className="text-white font-semibold lg:text-[18px]">{username}</p>
+                                <p className="text-white font-semibold lg:text-[18px]">{user?.username}</p>
                             </div>
                             <img className="object-contain cursor-pointer" src="img/edit.png" alt="" />
                         </div>

@@ -1,7 +1,8 @@
 import MenuBar from "../Fragments/MenuBar"
+import useAuthStore from "@/stores/authStore";
 
 const Navbar = () => {
-    const username = localStorage.getItem("username")
+    const user = useAuthStore((state) => state.user);
     return (
         <nav className="py-[12px] px-[20px] lg:px-[80px] lg:py-[24px] bg-[#181A1C]">
             <div className="flex items-center justify-between gap-">
@@ -17,7 +18,7 @@ const Navbar = () => {
                     <a className="text-[14px] lg:text-[18px]" href="/admin">Admin</a>
                 </div>
                 <div className="flex items-center text-white text-[14px] lg:text-[18px]">
-                    Hi, {username}
+                    Hi,{user?.username}
                     <MenuBar />
                 </div>
             </div>
