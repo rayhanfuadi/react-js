@@ -35,7 +35,7 @@ export const MenuBar = () => {
                         </a>
                     </DropdownMenuLabel>
                     <DropdownMenuLabel className="w-[150px] flex items-center px-[12px] py-[8px] hover:bg-[#0f1011] hover:text-indigo-500 cursor-pointer">
-                        <a className="flex gap-2" href="/changeService">
+                        <a className="flex gap-2" href="/langganan">
                             <img className="w-[20px]" src="img/star.svg" alt="" />
                             Ubah Premium
                         </a>

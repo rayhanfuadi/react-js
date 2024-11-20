@@ -12,6 +12,7 @@ import Profile from './Pages/profile';
 import ChangeService from './Pages/changeService';
 import Film from './Pages/Film'
 import Admin from './Pages/Admin';
+import Langganan from './Pages/Langganan';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/langganan",
+    element: <Langganan />,
   },
 ])
 

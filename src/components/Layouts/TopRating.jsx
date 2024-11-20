@@ -64,13 +64,16 @@ export const TopRating = () => {
     //     }
     // ]
 
+
     const [film, setFilm] = useState([])
     useEffect(() => {
         const storedFilm = JSON.parse(localStorage.getItem('film')) || []
         setFilm(storedFilm)
     }, [])
 
+    const [successMessage, setSuccessMessage] = useState("")
     const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
+
         const newFilmItem = {
             id: productId,
             tittle: productTittle,
@@ -82,6 +85,8 @@ export const TopRating = () => {
             const newFilm = [...film, newFilmItem]
             setFilm(newFilm)
             localStorage.setItem('film', JSON.stringify(newFilm))
+            setSuccessMessage("Berhasil disimpan ke Daftar Saya!")
+            setTimeout(() => setSuccessMessage(""), 3000)
         }
     }
 
@@ -114,8 +119,9 @@ export const TopRating = () => {
                     <div className="modal" role="dialog">
                         <div className="modal-box bg-primary p-0 w-fit">
                             <PopUpCard img={e.img} tittle={e.tittle} />
-                            <div className="flex justify-end gap-2 lg:gap-4 mb-3 lg:mb-5">
-                                <button className="btn text-white bg-slate-800 mr-3 lg:mr-6 hover:bg-slate-900/80" onClick={() => handleAddToCart(e.id, e.tittle, e.badge, e.img)}>Masukan List</button>
+                            <div className="flex justify-end items-center gap-2 lg:gap-4 mb-3 lg:mb-5 mx-3 lg:mx-6">
+                                {successMessage && <span className="text-green-500">{successMessage}</span>}
+                                <button className="btn text-white bg-slate-800 hover:bg-slate-900/80" onClick={() => handleAddToCart(e.id, e.tittle, e.badge, e.img)}>Masukan List</button>
                             </div>
                         </div>
                         <label className="modal-backdrop" htmlFor={`rating_modal_${e.id}`}>Close</label>

@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
         <div
-            className="w-full p-[20px] mt-[28px] lg:mt-[80px] lg:px-[80px] lg:py-[60px] lg:flex lg:justify-between bg-primary text-white border-t-[1px] border-[#fff] border-opacity-[0.3]">
+            className="w-full p-[20px] mt-[20px] lg:mt-[40px] lg:px-[80px] lg:py-[60px] lg:flex lg:justify-between bg-primary text-white border-t-[1px] border-[#fff] border-opacity-[0.3]">
             <div className="block mb-[40px] lg:mb-0 lg:content-center">
                 <img className="mb-[16px] lg:mb-[26px] lg:w-[163px]" src="img/logoFooter.svg" alt="" />
                 <p className="text-[12px] lg:text-[16px]">@2024 Chill | Muhammad Rayhan Fuadi</p>
