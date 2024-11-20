@@ -1,6 +1,6 @@
 import ButtonPrimary from "../Elements/Button/ButtonPrimary"
 
-const Service = (props) => {
+const ServiceNotActive = () => {
     return (
         <div className="grid gap-y-5 p-6 bg-[#3D4142] rounded-xl">
             <div className="flex gap-5">
@@ -17,4 +17,4 @@ const Service = (props) => {
     )
 }
 
-export default Service
+export default ServiceNotActive

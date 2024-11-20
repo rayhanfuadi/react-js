@@ -9,7 +9,6 @@ import { Card, CardContent } from "@/components/ui/card"
 import TopRatingCard from "../Fragments/TopRatingCard"
 
 import BadgeBiru from "../Elements/Badges/Badge"
-import RilisCard from "../Fragments/RilisCard"
 import BadgeMerah from "../Elements/Badges/BadgeMerah"
 import PopUpCard from "../Fragments/popUpCard"
 import { useEffect, useState } from "react"
@@ -72,6 +71,27 @@ const RilisBaru = () => {
     //         img: "img/film/r8.png",
     //     },
     // ]
+
+    const [film, setFilm] = useState([])
+    useEffect(() => {
+        const storedFilm = JSON.parse(localStorage.getItem('film')) || []
+        setFilm(storedFilm)
+    }, [])
+
+    const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
+        const newFilmItem = {
+            id: productId,
+            tittle: productTittle,
+            badge: productBadge,
+            img: productImg,
+        };
+
+        if (!film.some((e) => e.id === productId)) {
+            const newFilm = [...film, newFilmItem]
+            setFilm(newFilm)
+            localStorage.setItem('film', JSON.stringify(newFilm))
+        }
+    }
 
     const badgeComponents = {
         BadgeBiru: <BadgeBiru />,
