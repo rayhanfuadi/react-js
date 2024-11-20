@@ -71,7 +71,7 @@ const List = () => {
     useEffect(() => {
         const storedFilm = JSON.parse(localStorage.getItem('film')) || []
         setFilm(storedFilm)
-    }, [])
+    }, [film])
 
     const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
         const newFilmItem = {

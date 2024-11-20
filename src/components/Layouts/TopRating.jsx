@@ -64,6 +64,19 @@ export const TopRating = () => {
     //     }
     // ]
 
+    const badgeComponents = {
+        BadgeBiru: <BadgeBiru />,
+    }
+    const RenderBadge = ({ badgeName }) => {
+        return badgeComponents[badgeName] || null;
+    }
+
+    const [productsRating, setProductsRating] = useState([])
+    useEffect(() => {
+        getTopRating((data) => {
+            setProductsRating(data)
+        })
+    }, [])
 
     const [film, setFilm] = useState([])
     useEffect(() => {
@@ -73,7 +86,6 @@ export const TopRating = () => {
 
     const [successMessage, setSuccessMessage] = useState("")
     const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
-
         const newFilmItem = {
             id: productId,
             tittle: productTittle,
@@ -89,20 +101,6 @@ export const TopRating = () => {
             setTimeout(() => setSuccessMessage(""), 3000)
         }
     }
-
-    const badgeComponents = {
-        BadgeBiru: <BadgeBiru />,
-    }
-    const RenderBadge = ({ badgeName }) => {
-        return badgeComponents[badgeName] || null;
-    }
-
-    const [productsRating, setProductsRating] = useState([])
-    useEffect(() => {
-        getTopRating((data) => {
-            setProductsRating(data)
-        })
-    }, [])
 
     return (
         <div className="p-[20px] lg:py-[40px] lg:px-[80px] bg-primary">

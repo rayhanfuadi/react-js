@@ -13,6 +13,7 @@ import ChangeService from './Pages/changeService';
 import Film from './Pages/Film'
 import Admin from './Pages/Admin';
 import Langganan from './Pages/Langganan';
+import Payment from './Pages/Payment';
 
 const router = createBrowserRouter([
   {
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "/langganan",
     element: <Langganan />,
+  },
+  {
+    path: "/payment",
+    element: <Payment />,
   },
 ])
 
