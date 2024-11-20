@@ -1,5 +1,5 @@
 
-import Service from "@/components/Fragments/Service"
+import Service from "@/components/Fragments/ServiceNotActive"
 import Footer from "@/components/Layouts/Footer"
 import List from "@/components/Layouts/List"
 import Navbar from "@/components/Layouts/Navbar"

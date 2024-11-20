@@ -64,6 +64,27 @@ export const TopRating = () => {
     //     }
     // ]
 
+    const [film, setFilm] = useState([])
+    useEffect(() => {
+        const storedFilm = JSON.parse(localStorage.getItem('film')) || []
+        setFilm(storedFilm)
+    }, [])
+
+    const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
+        const newFilmItem = {
+            id: productId,
+            tittle: productTittle,
+            badge: productBadge,
+            img: productImg,
+        };
+
+        if (!film.some((e) => e.id === productId)) {
+            const newFilm = [...film, newFilmItem]
+            setFilm(newFilm)
+            localStorage.setItem('film', JSON.stringify(newFilm))
+        }
+    }
+
     const badgeComponents = {
         BadgeBiru: <BadgeBiru />,
     }
@@ -87,8 +108,8 @@ export const TopRating = () => {
             </div>
 
             {/* Pop Up Card */}
-            {productsRating.map((e, index) => (
-                <div key={index}>
+            {productsRating.map((e) => (
+                <div key={e.id}>
                     <input type="checkbox" id={`rating_modal_${e.id}`} className="modal-toggle" />
                     <div className="modal" role="dialog">
                         <div className="modal-box bg-primary p-0 w-fit">

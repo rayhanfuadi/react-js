@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import BadgeBiru from "../Elements/Badges/Badge"
+import BadgeMerah from "../Elements/Badges/BadgeMerah"
 import TopRatingCard from "../Fragments/TopRatingCard"
 import {
     Carousel,
@@ -64,24 +65,7 @@ import { getTopRating } from "@/services/topFilm.services"
 // ]
 
 const List = () => {
-    const badgeComponents = {
-        BadgeBiru: <BadgeBiru />,
-    }
-    const RenderBadge = ({ badgeName }) => {
-        return badgeComponents[badgeName] || null;
-    }
-
-    const [productsRating, setProductsRating] = useState([])
-    useEffect(() => {
-        getTopRating((data) => {
-            setProductsRating(data)
-        })
-    })
-
-
-
     const [film, setFilm] = useState([])
-    // const [totalFilm, setTotalFilm] = useState([])
     const [filmToDelete, setFilmToDelete] = useState(null);
 
     useEffect(() => {
@@ -112,10 +96,64 @@ const List = () => {
             setFilmToDelete(null); // Reset filmToDelete setelah menghapus
         }
     };
+
+    const badgeComponents = {
+        BadgeBiru: <BadgeBiru />,
+        BadgeMerah: <BadgeMerah />
+    }
+    const RenderBadge = ({ badgeName }) => {
+        return badgeComponents[badgeName] || null;
+    }
+
+    const [productsRating, setProductsRating] = useState([])
+    useEffect(() => {
+        getTopRating((data) => {
+            setProductsRating(data)
+        })
+    })
+
     return (
         <div className="">
             <div className="p-5 lg:px-[80px] lg:py-[40px]">
-                <div className="grid gap-8">
+                {/* List Film */}
+                <div className="">
+                    <div className="flex justify-between">
+                        <h1 className="text-3xl font-semibold text-white text-start mb-4 lg:mb-6">Daftar Film Saya</h1>
+                        <p className="text-xl cursor-pointer text-white text-start mb-4 lg:mb-6 hover:font-semibold">Lihat semua</p>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:md:grid-cols-6 gap-3 lg:gap-5">
+                        {film.length > 0 ? (
+                            film.map((item) => (
+                                <Carousel key={item.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
+                                    <CarouselItem className="m-0 p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                                        <div className="cursor-pointer">
+                                            <Card className="rounded-xl p-0 w-full border-none">
+                                                <CardContent className="flex p-0 items-center justify-center">
+                                                    <TopRatingCard
+                                                        justify="start"
+                                                        img={item.img}
+                                                        children={<RenderBadge badgeName={item.badge} />}
+                                                    />
+                                                </CardContent>
+                                            </Card>
+                                            {/* Tombol Hapus */}
+                                            <button
+                                                className="absolute bg-transparent w-full h-full top-0 text-red-500"
+                                                onClick={() => setFilmToDelete(item.id)}
+                                            ></button>
+                                        </div>
+                                    </CarouselItem>
+                                </Carousel>
+                            ))
+                        ) : (
+                            <div className="">List Film Kosong</div>
+                        )}
+
+                    </div>
+                </div>
+
+                {/* Daftar Saya Example (hidden change to grid) */}
+                <div className="hidden gap-8">
                     <div className="flex justify-between">
                         <h1 className="text-white font-bold text-xl lg:text-[32px]">Daftar Saya</h1>
                         <p className="text-white text-[18px] hidden lg:block">Lihat Semua</p>
@@ -173,39 +211,11 @@ const List = () => {
             </div >
 
             {/* List Film */}
-            <div className="bg-slate-100/10 mb-[20px] h-full">
+            {/* <div className="bg-primary mb-[20px] h-full">
                 <div className="p-5 lg:px-[80px] lg:py-[40px]">
-                    <h1 className="text-3xl font-semibold text-white text-center mb-4 lg:mb-6">List Film</h1>
-                    <div className="flex flex-wrap justify-center gap-3 lg:gap-5 ">
-                        {film.length > 0 ? (
-                            film.map((item) => (
-                                <Carousel key={item.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
-                                    <CarouselItem className="m-0 p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
-                                        <div className="cursor-pointer">
-                                            <Card className="rounded-xl p-0 w-full border-none">
-                                                <CardContent className="flex p-0 items-center justify-center">
-                                                    <TopRatingCard
-                                                        justify="start"
-                                                        img={item.img}
-                                                    />
-                                                </CardContent>
-                                            </Card>
-                                            {/* Tombol Hapus */}
-                                            <button
-                                                className="absolute bg-transparent w-full h-full top-0 text-red-500"
-                                                onClick={() => setFilmToDelete(item.id)}
-                                            ></button>
-                                        </div>
-                                    </CarouselItem>
-                                </Carousel>
-                            ))
-                        ) : (
-                            <div className="">List Film Kosong</div>
-                        )}
 
-                    </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* Modal Konfirmasi Hapus */}
             {filmToDelete && (

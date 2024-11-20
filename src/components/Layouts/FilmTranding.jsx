@@ -13,7 +13,6 @@ import { useState, useEffect } from "react"
 import { getFilmTranding } from "@/services/filmTranding.services"
 
 export const FilmTranding = () => {
-
     // const productsTranding = [
     //     {
     //         id: 1,
@@ -65,6 +64,27 @@ export const FilmTranding = () => {
     //     },
     // ]
 
+    const [film, setFilm] = useState([])
+    useEffect(() => {
+        const storedFilm = JSON.parse(localStorage.getItem('film')) || []
+        setFilm(storedFilm)
+    }, [])
+
+    const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
+        const newFilmItem = {
+            id: productId,
+            tittle: productTittle,
+            badge: productBadge,
+            img: productImg,
+        };
+
+        if (!film.some((e) => e.id === productId)) {
+            const newFilm = [...film, newFilmItem]
+            setFilm(newFilm)
+            localStorage.setItem('film', JSON.stringify(newFilm))
+        }
+    }
+
     const badgeComponents = {
         BadgeMerah: <BadgeMerah />,
     }
@@ -85,8 +105,8 @@ export const FilmTranding = () => {
             </div>
 
             {/* Pop Up Card */}
-            {productsTranding.map((e, index) => (
-                <div key={index}>
+            {productsTranding.map((e) => (
+                <div key={e.id}>
                     <input type="checkbox" id={`tranding_modal_${e.id}`} className="modal-toggle" />
                     <div className="modal" role="dialog">
                         <div className="modal-box bg-primary p-0 w-fit">

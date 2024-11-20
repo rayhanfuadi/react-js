@@ -1,11 +1,12 @@
 
-import Service from "@/components/Fragments/Service"
 import Footer from "@/components/Layouts/Footer"
 import List from "@/components/Layouts/List"
 import Navbar from "@/components/Layouts/Navbar"
 import useAuthStore from "@/stores/authStore"
 import { useEffect, useState } from "react"
 import RedirectLogin from "./RedirectLogin"
+import ServiceNotActive from "@/components/Fragments/ServiceNotActive"
+import ServiceActive from "@/components/Fragments/ServiceActive"
 
 
 const Profile = () => {
@@ -104,8 +105,9 @@ const Profile = () => {
         <div className="bg-primary h-full">
             <Navbar />
             <div className="grid gap-5 p-5 lg:px-[80px] lg:py-[40px] lg:grid lg:grid-cols-12">
-                <div className="lg:col-span-6 lg:order-last lg:ml-[80px]">
-                    <Service />
+                <div className="flex flex-col gap-4 lg:col-span-6 lg:order-last lg:ml-[80px]">
+                    <ServiceNotActive />
+                    <ServiceActive />
                 </div>
 
                 <div className="lg:col-span-6 profile grid gap-6 lg:gap-y-8">
