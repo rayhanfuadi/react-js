@@ -82,7 +82,7 @@ export const CarouselSwiper = () => {
     }, [])
 
     return (
-        <div className="bg-primary px-[20px] lg:px-[80px] py-[20px] lg:py-[40px]">
+        <div className="bg-primary container py-[20px] lg:py-[40px]">
             <div className="font-semibold text-[20px] lg:text-[32px] text-white mb-[20px] lg:mb-[32px]">Melanjutkan Tonton Film
             </div>
             <div className="relative h-full">

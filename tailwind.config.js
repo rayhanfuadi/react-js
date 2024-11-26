@@ -8,6 +8,16 @@ export default {
     "./node_modules/flowbite/**/*.js",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '20px',
+        md: '40px',
+        lg: '80px',
+        xl: '100px',
+        '2xl': '120px',
+      },
+    },
     extend: {
       backgroundImage: {
         'bg-pattern': "url('/img/masuk.jpg')",

@@ -8,4 +8,3 @@ export const getUsers = (callback) => {
         console.log(err)
     })
 }
-

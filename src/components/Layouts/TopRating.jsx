@@ -11,6 +11,8 @@ import TopRatingCard from "../Fragments/TopRatingCard"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
 import { getTopRating } from "@/services/topFilm.services"
+import { useDispatch, useSelector } from "react-redux"
+import { addFilm } from "@/stores/redux"
 
 export const TopRating = () => {
     // const productsRating = [
@@ -64,19 +66,6 @@ export const TopRating = () => {
     //     }
     // ]
 
-    const badgeComponents = {
-        BadgeBiru: <BadgeBiru />,
-    }
-    const RenderBadge = ({ badgeName }) => {
-        return badgeComponents[badgeName] || null;
-    }
-
-    const [productsRating, setProductsRating] = useState([])
-    useEffect(() => {
-        getTopRating((data) => {
-            setProductsRating(data)
-        })
-    }, [])
 
     const [film, setFilm] = useState([])
     useEffect(() => {
@@ -86,6 +75,7 @@ export const TopRating = () => {
 
     const [successMessage, setSuccessMessage] = useState("")
     const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
+
         const newFilmItem = {
             id: productId,
             tittle: productTittle,
@@ -102,12 +92,37 @@ export const TopRating = () => {
         }
     }
 
-    return (
-        <div className="p-[20px] lg:py-[40px] lg:px-[80px] bg-primary">
+    const badgeComponents = {
+        BadgeBiru: <BadgeBiru />,
+    }
+    const RenderBadge = ({ badgeName }) => {
+        return badgeComponents[badgeName] || null;
+    }
 
+    const [productsRating, setProductsRating] = useState([])
+    useEffect(() => {
+        getTopRating((data) => {
+            setProductsRating(data)
+        })
+    }, [])
+
+    const dispatch = useDispatch()
+    const dataFilm = useSelector((state) => state.film.data)
+
+    return (
+        <div className="bg-primary container py-[20px] lg:py-[40px]">
             <div className="font-semibold text-white text-[20px] lg:text-[32px] mb-[20px] lg:mb-[32px]">Top Rating Film dan
                 Series Hari
                 ini
+            </div>
+
+            <div className="">
+                <p>test</p>
+                {dataFilm.map((item) => (
+                    <div key={item.id}>
+                        <p>{item.tittle}</p>
+                    </div>
+                ))}
             </div>
 
             {/* Pop Up Card */}
@@ -119,13 +134,14 @@ export const TopRating = () => {
                             <PopUpCard img={e.img} tittle={e.tittle} />
                             <div className="flex justify-end items-center gap-2 lg:gap-4 mb-3 lg:mb-5 mx-3 lg:mx-6">
                                 {successMessage && <span className="text-green-500">{successMessage}</span>}
-                                <button className="btn text-white bg-slate-800 hover:bg-slate-900/80" onClick={() => handleAddToCart(e.id, e.tittle, e.badge, e.img)}>Masukan List</button>
+                                <button className="btn text-white bg-slate-800 hover:bg-slate-900/80" onClick={() => dispatch(addFilm({ id: e.id, tittle: e.tittle, badge: e.badge, img: e.img }))}>Masukan List</button>
                             </div>
                         </div>
                         <label className="modal-backdrop" htmlFor={`rating_modal_${e.id}`}>Close</label>
                     </div>
                 </div>
-            ))}
+            ))
+            }
 
             {/* Products Carousel Top Rating */}
             <div className="flex justify-center p-0 bg-primary">
