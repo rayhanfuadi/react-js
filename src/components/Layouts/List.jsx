@@ -4,14 +4,15 @@ import BadgeMerah from "../Elements/Badges/BadgeMerah"
 import TopRatingCard from "../Fragments/TopRatingCard"
 import {
     Carousel,
-    CarouselContent,
+    // CarouselContent,
     CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
+    // CarouselNext,
+    // CarouselPrevious,
 } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
-import PopUpCard from "../Fragments/popUpCard"
-import { getTopRating } from "@/services/topFilm.services"
+// import PopUpCard from "../Fragments/popUpCard"
+// import { getTopRating } from "@/services/topFilm.services"
+import { useSelector } from "react-redux"
 
 // const productsRating = [
 //     {
@@ -67,26 +68,27 @@ import { getTopRating } from "@/services/topFilm.services"
 const List = () => {
     const [film, setFilm] = useState([])
     const [filmToDelete, setFilmToDelete] = useState(null);
+    const filmStored = useSelector((state) => state.film.data)
 
     useEffect(() => {
         const storedFilm = JSON.parse(localStorage.getItem('film')) || []
         setFilm(storedFilm)
     }, [])
 
-    const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
-        const newFilmItem = {
-            id: productId,
-            tittle: productTittle,
-            badge: productBadge,
-            img: productImg,
-        };
+    // const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
+    //     const newFilmItem = {
+    //         id: productId,
+    //         tittle: productTittle,
+    //         badge: productBadge,
+    //         img: productImg,
+    //     };
 
-        if (!film.some((e) => e.id === productId)) {
-            const newFilm = [...film, newFilmItem]
-            setFilm(newFilm)
-            localStorage.setItem('film', JSON.stringify(newFilm))
-        }
-    }
+    //     if (!film.some((e) => e.id === productId)) {
+    //         const newFilm = [...film, newFilmItem]
+    //         setFilm(newFilm)
+    //         localStorage.setItem('film', JSON.stringify(newFilm))
+    //     }
+    // }
 
     const handleDeleteFilm = () => {
         if (filmToDelete) {
@@ -105,16 +107,16 @@ const List = () => {
         return badgeComponents[badgeName] || null;
     }
 
-    const [productsRating, setProductsRating] = useState([])
-    useEffect(() => {
-        getTopRating((data) => {
-            setProductsRating(data)
-        })
-    })
+    // const [productsRating, setProductsRating] = useState([])
+    // useEffect(() => {
+    //     getTopRating((data) => {
+    //         setProductsRating(data)
+    //     })
+    // })
 
     return (
         <div className="">
-            <div className="p-5 lg:px-[80px] lg:py-[40px]">
+            <div className="container py-[20px] lg:py-[40px]">
                 {/* List Film */}
                 <div className="">
                     <div className="flex justify-between">
@@ -122,8 +124,8 @@ const List = () => {
                         <p className="text-xl cursor-pointer text-white text-start mb-4 lg:mb-6 hover:font-semibold">Lihat semua</p>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:md:grid-cols-6 gap-3 lg:gap-5">
-                        {film.length > 0 ? (
-                            film.map((item) => (
+                        {filmStored.length > 0 ? (
+                            filmStored.map((item) => (
                                 <Carousel key={item.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
                                     <CarouselItem className="m-0 p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                         <div className="cursor-pointer">
@@ -153,14 +155,13 @@ const List = () => {
                 </div>
 
                 {/* Daftar Saya Example (hidden change to grid) */}
-                <div className="hidden gap-8">
+                {/* <div className="hidden gap-8">
                     <div className="flex justify-between">
                         <h1 className="text-white font-bold text-xl lg:text-[32px]">Daftar Saya</h1>
                         <p className="text-white text-[18px] hidden lg:block">Lihat Semua</p>
                     </div>
 
                     <div className="">
-                        {/* Pop Up Card */}
                         {productsRating.map((e) => (
                             <div key={e.id}>
                                 <input type="checkbox" id={`rating_modal_${e.id}`} className="modal-toggle" />
@@ -176,7 +177,6 @@ const List = () => {
                             </div>
                         ))}
 
-                        {/* Carousel Top Rating */}
                         <div className="flex justify-center p-0 bg-primary">
                             <Carousel
                                 className="relative w-full justify-center"
@@ -206,8 +206,7 @@ const List = () => {
                             </Carousel>
                         </div >
                     </div>
-
-                </div>
+                </div> */}
             </div >
 
             {/* List Film */}

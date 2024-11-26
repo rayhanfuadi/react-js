@@ -1,0 +1,22 @@
+[
+  {
+    "jenisFilm": "Tonton Film",
+    "id": "1"
+  },
+  {
+    "jenisFilm": "Top Rating",
+    "id": "2"
+  },
+  {
+    "jenisFilm": "Film Tranding",
+    "id": "3"
+  },
+  {
+    "jenisFilm": "Rilis Baru",
+    "id": "4"
+  },
+  {
+    "jenisFilm": "Genre",
+    "id": "5"
+  }
+]

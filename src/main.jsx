@@ -13,6 +13,9 @@ import ChangeService from './Pages/changeService';
 import Film from './Pages/Film'
 import Admin from './Pages/Admin';
 import Langganan from './Pages/Langganan';
+import Payment from './Pages/Payment';
+import { Provider } from 'react-redux';
+import store from './stores/store';
 
 const router = createBrowserRouter([
   {
@@ -53,16 +56,23 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
+    // path: "/admin",
     element: <Admin />,
   },
   {
     path: "/langganan",
     element: <Langganan />,
   },
+  {
+    path: "/payment",
+    element: <Payment />,
+  },
 ])
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </StrictMode>,
 )

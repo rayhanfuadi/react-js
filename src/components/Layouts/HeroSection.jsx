@@ -1,9 +1,9 @@
 const HeroSection = (props) => {
     const { hero } = props
     return (
-        <div className="container-xl relative">
+        <div className="relative">
             <div
-                className="w-full h-full flex flex-col absolute top-0 left-0 justify-center items-start z-30 px-[20px] lg:px-[80px] md:px-[80px] gap-3">
+                className="w-full h-full flex flex-col absolute top-0 left-0 right-0 justify-center items-start z-30 container gap-3">
                 <div className="text-white text-[24px] lg:text-[48px] lg:font-semibold md:text-[36px]">Duty After School</div>
                 <p
                     className="text-white text-[12px] lg:h-auto lg:w-[668px] md:w-[668px] lg:text-[18px] md:text-[16px] h-[40px] text-truncate overflow-hidden">

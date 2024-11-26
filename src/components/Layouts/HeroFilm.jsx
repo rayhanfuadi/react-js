@@ -64,8 +64,8 @@ const HeroFilm = () => {
     }, [])
 
     return (
-        <div className="container-xl relative">
-            <div className="w-full h-full flex flex-col lg:justify-between py-[20px] lg:py-[80px] absolute top-0 left-0 justify-center items-start z-30 px-[20px] lg:px-[80px] md:px-[80px]">
+        <div className="relative">
+            <div className="w-full h-full flex flex-col lg:justify-between py-[20px] lg:py-[80px] absolute top-0 left-0 right-0 justify-center items-start z-30 container">
                 <div className="hidden lg:block genre">
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>

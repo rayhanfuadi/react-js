@@ -12,6 +12,7 @@ const FormLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const user = useAuthStore((state) => state.user)
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -24,7 +25,7 @@ const FormLogin = () => {
 
         const success = await login(email, password);
         if (success) {
-            alert('Login berhasil!');
+            alert(`Login Berhasil, Selamat Datang ${user.username}`);
             navigate('/home'); // Arahkan ke halaman home setelah login berhasil
         } else {
             alert(error || 'Login gagal. Email atau password salah.');

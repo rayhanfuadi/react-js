@@ -112,7 +112,7 @@ const RilisBaru = () => {
     }, [])
 
     return (
-        <div className="p-[20px] lg:py-[40px] lg:px-[80px] bg-primary">
+        <div className="bg-primary container py-[20px] lg:py-[40px]">
             <div className="font-semibold text-white text-[20px] lg:text-[32px] mb-[20px] lg:mb-[32px]">Rilis Baru
             </div>
 
