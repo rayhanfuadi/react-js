@@ -21,8 +21,11 @@ const filmReducer = createSlice({
                 localStorage.setItem('film', JSON.stringify(newFilm))
             }
         },
-        deleteFilm(state, action) {
-            state.data.splice(action.payload, 1)
+        deleteFilm(state) {
+            const updatedFilm = state.data.filter(item => item.id !== filmToDelete)
+            state.data = updatedFilm
+            localStorage.setItem('film', JSON.stringify(updatedFilm))
+            // state.data.splice(action.payload, 1)
         },
     }
 })

@@ -11,7 +11,7 @@ import TopRatingCard from "../Fragments/TopRatingCard"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
 import { getTopRating } from "@/services/topFilm.services"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { addFilm } from "@/stores/redux"
 
 export const TopRating = () => {
@@ -66,31 +66,30 @@ export const TopRating = () => {
     //     }
     // ]
 
+    // const [film, setFilm] = useState([])
+    // useEffect(() => {
+    //     const storedFilm = JSON.parse(localStorage.getItem('film')) || []
+    //     setFilm(storedFilm)
+    // }, [])
 
-    const [film, setFilm] = useState([])
-    useEffect(() => {
-        const storedFilm = JSON.parse(localStorage.getItem('film')) || []
-        setFilm(storedFilm)
-    }, [])
+    // const [successMessage, setSuccessMessage] = useState("")
+    // const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
 
-    const [successMessage, setSuccessMessage] = useState("")
-    const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
+    //     const newFilmItem = {
+    //         id: productId,
+    //         tittle: productTittle,
+    //         badge: productBadge,
+    //         img: productImg,
+    //     };
 
-        const newFilmItem = {
-            id: productId,
-            tittle: productTittle,
-            badge: productBadge,
-            img: productImg,
-        };
-
-        if (!film.some((e) => e.id === productId)) {
-            const newFilm = [...film, newFilmItem]
-            setFilm(newFilm)
-            localStorage.setItem('film', JSON.stringify(newFilm))
-            setSuccessMessage("Berhasil disimpan ke Daftar Saya!")
-            setTimeout(() => setSuccessMessage(""), 3000)
-        }
-    }
+    //     if (!film.some((e) => e.id === productId)) {
+    //         const newFilm = [...film, newFilmItem]
+    //         setFilm(newFilm)
+    //         localStorage.setItem('film', JSON.stringify(newFilm))
+    //         setSuccessMessage("Berhasil disimpan ke Daftar Saya!")
+    //         setTimeout(() => setSuccessMessage(""), 3000)
+    //     }
+    // }
 
     const badgeComponents = {
         BadgeBiru: <BadgeBiru />,
@@ -107,22 +106,12 @@ export const TopRating = () => {
     }, [])
 
     const dispatch = useDispatch()
-    const dataFilm = useSelector((state) => state.film.data)
 
     return (
         <div className="bg-primary container py-[20px] lg:py-[40px]">
             <div className="font-semibold text-white text-[20px] lg:text-[32px] mb-[20px] lg:mb-[32px]">Top Rating Film dan
                 Series Hari
                 ini
-            </div>
-
-            <div className="">
-                <p>test</p>
-                {dataFilm.map((item) => (
-                    <div key={item.id}>
-                        <p>{item.tittle}</p>
-                    </div>
-                ))}
             </div>
 
             {/* Pop Up Card */}
@@ -133,7 +122,7 @@ export const TopRating = () => {
                         <div className="modal-box bg-primary p-0 w-fit">
                             <PopUpCard img={e.img} tittle={e.tittle} />
                             <div className="flex justify-end items-center gap-2 lg:gap-4 mb-3 lg:mb-5 mx-3 lg:mx-6">
-                                {successMessage && <span className="text-green-500">{successMessage}</span>}
+                                {/* {successMessage && <span className="text-green-500">{successMessage}</span>} */}
                                 <button className="btn text-white bg-slate-800 hover:bg-slate-900/80" onClick={() => dispatch(addFilm({ id: e.id, tittle: e.tittle, badge: e.badge, img: e.img }))}>Masukan List</button>
                             </div>
                         </div>

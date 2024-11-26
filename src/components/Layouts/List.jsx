@@ -68,7 +68,7 @@ import { useSelector } from "react-redux"
 const List = () => {
     const [film, setFilm] = useState([])
     const [filmToDelete, setFilmToDelete] = useState(null);
-    const filmStored = useSelector((state) => state.film.data);
+    const filmStored = useSelector((state) => state.film.data)
 
     useEffect(() => {
         const storedFilm = JSON.parse(localStorage.getItem('film')) || []
@@ -124,8 +124,8 @@ const List = () => {
                         <p className="text-xl cursor-pointer text-white text-start mb-4 lg:mb-6 hover:font-semibold">Lihat semua</p>
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:md:grid-cols-6 gap-3 lg:gap-5">
-                        {film.length > 0 ? (
-                            film.map((item) => (
+                        {filmStored.length > 0 ? (
+                            filmStored.map((item) => (
                                 <Carousel key={item.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
                                     <CarouselItem className="m-0 p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                         <div className="cursor-pointer">
