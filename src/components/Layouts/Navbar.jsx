@@ -4,7 +4,7 @@ import useAuthStore from "@/stores/authStore";
 const Navbar = () => {
     const user = useAuthStore((state) => state.user);
     return (
-        <nav className="container py-[12px] lg:py-[24px] bg-[#181A1C]">
+        <div className="container py-[12px] lg:py-[24px] bg-[#181A1C]">
             <div className="flex items-center justify-between gap-">
                 <div
                     className="flex items-center text-white gap-x-[14px] text-[12px] lg:gap-x-[40px] lg:text-[18px] md:gap-x-[28px] md:text-[14px]">
@@ -24,7 +24,7 @@ const Navbar = () => {
                     <MenuBar />
                 </div>
             </div>
-        </nav>
+        </div>
     )
 }
 

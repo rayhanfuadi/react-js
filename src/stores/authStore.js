@@ -3,30 +3,12 @@ import axios from 'axios';
 
 const API_URL = 'https://673ad4be339a4ce44519416d.mockapi.io/users';
 
-// Setup Axios interceptors untuk debugging
-axios.interceptors.request.use(request => {
-    console.log('Request:', request);
-    return request;
-}, error => {
-    console.error('Request Error:', error);
-    return Promise.reject(error);
-});
-
-axios.interceptors.response.use(response => {
-    console.log('Response:', response);
-    return response;
-}, error => {
-    console.error('Response Error:', error);
-    return Promise.reject(error);
-});
-
 const useAuthStore = create((set) => ({
     user: JSON.parse(localStorage.getItem('user')) || null,
     isLoggedIn: !!localStorage.getItem('userId'),
     loading: false,
     error: null,
 
-    // Login function
     login: async (email, password) => {
         set({ loading: true, error: null });
         try {

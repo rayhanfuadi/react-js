@@ -139,9 +139,10 @@ const RilisBaru = () => {
                     <CarouselContent className="m-0 flex justify-start gap-x-3 lg:gap-x-6">
 
                         {productsRilis.map((product, index) => (
-                            <CarouselItem key={index} className="p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                            <CarouselItem key={index} className="relative p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                 <label htmlFor={`rilis_modal_${product.id}`} className="">
-                                    <div className="cursor-pointer">
+                                    <div className="relative cursor-pointer group">
+                                        <div className="bg-gradient-to-t from-[#000] to-[#000]/0 cursor-pointer font-semibold text-lg lg:text-xl text-white text-center  absolute bottom-0 left-0 right-0 text px-2 lg:px-3 pb-4 lg:pb-6 pt-6 lg:pt-8 group-hover:z-50">{product.tittle}</div>
                                         <Card className="rounded-xl p-0 w-full border-none">
                                             <CardContent className="flex p-0 items-center justify-center">
                                                 <TopRatingCard className="" justify={product.justify} children={<RenderBadge badgeName={product.badge} />} img={product.img} />

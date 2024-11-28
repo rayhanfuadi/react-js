@@ -68,7 +68,13 @@ import { useSelector } from "react-redux"
 const List = () => {
     const [film, setFilm] = useState([])
     const [filmToDelete, setFilmToDelete] = useState(null);
-    const filmStored = useSelector((state) => state.film.data)
+
+    const [listFilm, setListFilm] = useState([])
+    const filmStored = useSelector((state) => state.film.data) || []
+
+    useEffect(() => {
+        setListFilm(filmStored)
+    }, [listFilm])
 
     useEffect(() => {
         const storedFilm = JSON.parse(localStorage.getItem('film')) || []
@@ -123,9 +129,12 @@ const List = () => {
                         <h1 className="text-3xl font-semibold text-white text-start mb-4 lg:mb-6">Daftar Film Saya</h1>
                         <p className="text-xl cursor-pointer text-white text-start mb-4 lg:mb-6 hover:font-semibold">Lihat semua</p>
                     </div>
+                    <div className="">
+                        { }
+                    </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:md:grid-cols-6 gap-3 lg:gap-5">
-                        {filmStored.length > 0 ? (
-                            filmStored.map((item) => (
+                        {listFilm.length > 0 ? (
+                            listFilm.map((item) => (
                                 <Carousel key={item.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
                                     <CarouselItem className="m-0 p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                         <div className="cursor-pointer">
@@ -223,7 +232,8 @@ const List = () => {
                         <h2 className="text-white">Konfirmasi Hapus</h2>
                         <p className="text-white">Apakah Anda yakin ingin menghapus film ini?</p>
                         <div className="flex justify-end mt-4">
-                            <button className="btn text-white bg-red-500 hover:bg-red-600" onClick={handleDeleteFilm}>Hapus</button>
+                            <button className="btn text-white bg-red-500 hover:bg-red-600"
+                                onClick={handleDeleteFilm}>Hapus</button>
                             <button className="btn text-white bg-gray-500 hover:bg-gray-600 ml-2" onClick={() => setFilmToDelete(null)}>Batal</button>
                         </div>
                     </div>
