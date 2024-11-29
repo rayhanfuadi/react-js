@@ -9,7 +9,7 @@ import { Card, Typography, Dialog } from "@material-tailwind/react";
 
 const Admin = () => {
     const { isLoggedIn, checkSession } = useAuthStore();
-    const [isModalOpen, setIsModalOpen] = useState(false); // State untuk modal
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedId, setSelectedId] = useState(null);
     // Fungsi untuk membuka modal
     const openModal = (id) => {
@@ -80,9 +80,6 @@ const Admin = () => {
                             <div className="flex justify-between items-end">
                                 <p className="text-2xl font-semibold text-center text-white">Dashboard Admin</p>
                                 <button className="btn bg-indigo-600 hover:bg-indigo-700 text-white">Tambah Data</button>
-                            </div>
-                            <div className="flex w-full justify-end">
-
                             </div>
 
                             <Card className="h-full w-full overflow-scroll">
