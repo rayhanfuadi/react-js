@@ -162,8 +162,8 @@ const Admin = () => {
                                                                 {tittle}
                                                             </Typography>
                                                         </td>
-                                                        <td className={classes}>
-                                                            <Typography variant="small" className="font-normal text-slate-900">
+                                                        <td className={`${classes}`}>
+                                                            <Typography variant="small" className="font-normal text-slate-900 w-[200px]">
                                                                 {img}
                                                             </Typography>
                                                         </td>
