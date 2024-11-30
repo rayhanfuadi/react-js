@@ -11,82 +11,24 @@ import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
 import { useState, useEffect } from "react"
 import { getFilmTranding } from "@/services/filmTranding.services"
+import { useDispatch, useSelector } from "react-redux"
+import { addFilm, clearSuccessMessage } from "@/stores/redux"
 
 export const FilmTranding = () => {
-    // const productsTranding = [
-    //     {
-    //         id: 1,
-    //         tittle: "The Tomorrow War",
-    //         badge: <BadgeMerah />,
-    //         img: "img/film/f1.png",
-    //     },
-    //     {
-    //         id: 2,
-    //         tittle: "Quantumania",
-    //         badge: <BadgeMerah />,
-    //         img: "img/film/f2.png",
-    //     },
-    //     {
-    //         id: 3,
-    //         tittle: "Guardian Of Galaxy Vol III",
-    //         badge: <BadgeMerah />,
-    //         img: "img/film/f3.png",
-    //     },
-    //     {
-    //         id: 4,
-    //         tittle: "A Man Called Otto",
-    //         badge: <BadgeMerah />,
-    //         img: "img/film/f4.png",
-    //     },
-    //     {
-    //         id: 5,
-    //         tittle: "Little Mermaid",
-    //         badge: <BadgeMerah />,
-    //         img: "img/film/f5.png",
-    //     },
-    //     {
-    //         id: 6,
-    //         tittle: "The Tomorrow War",
-    //         badge: <BadgeMerah />,
-    //         img: "img/film/f6.png",
-    //     },
-    //     {
-    //         id: 7,
-    //         tittle: "Quantumania",
-    //         badge: <BadgeMerah />,
-    //         img: "img/film/f2.png",
-    //     },
-    //     {
-    //         id: 8,
-    //         tittle: "Guardian Of Galaxy Vol III",
-    //         badge: <BadgeMerah />,
-    //         img: "img/film/f3.png",
-    //     },
-    // ]
+    const dispatch = useDispatch()
+    const reduxSuccessMessage = useSelector((state) => state.film.successMessage)
+    const [localSuccessMessage, setLocalSuccessMessage] = useState("");
 
-    const [film, setFilm] = useState([])
     useEffect(() => {
-        const storedFilm = JSON.parse(localStorage.getItem('film')) || []
-        setFilm(storedFilm)
-    }, [])
-
-    const [successMessage, setSuccessMessage] = useState("")
-    const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
-        const newFilmItem = {
-            id: productId,
-            tittle: productTittle,
-            badge: productBadge,
-            img: productImg,
-        };
-
-        if (!film.some((e) => e.id === productId)) {
-            const newFilm = [...film, newFilmItem]
-            setFilm(newFilm)
-            localStorage.setItem('film', JSON.stringify(newFilm))
-            setSuccessMessage("Berhasil disimpan ke Daftar Saya!")
-            setTimeout(() => setSuccessMessage(""), 3000)
+        if (reduxSuccessMessage) {
+            setLocalSuccessMessage(reduxSuccessMessage)
+            const timer = setTimeout(() => {
+                dispatch(clearSuccessMessage())
+                setLocalSuccessMessage("")
+            }, 3000)
+            return () => clearTimeout(timer)
         }
-    }
+    }, [reduxSuccessMessage, dispatch])
 
     const badgeComponents = {
         BadgeMerah: <BadgeMerah />,
@@ -102,6 +44,30 @@ export const FilmTranding = () => {
         })
     }, [])
 
+    // const [film, setFilm] = useState([])
+    // useEffect(() => {
+    //     const storedFilm = JSON.parse(localStorage.getItem('film')) || []
+    //     setFilm(storedFilm)
+    // }, [])
+
+    // const [successMessage, setSuccessMessage] = useState("")
+    // const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
+    //     const newFilmItem = {
+    //         id: productId,
+    //         tittle: productTittle,
+    //         badge: productBadge,
+    //         img: productImg,
+    //     };
+
+    //     if (!film.some((e) => e.id === productId)) {
+    //         const newFilm = [...film, newFilmItem]
+    //         setFilm(newFilm)
+    //         localStorage.setItem('film', JSON.stringify(newFilm))
+    //         setSuccessMessage("Berhasil disimpan ke Daftar Saya!")
+    //         setTimeout(() => setSuccessMessage(""), 3000)
+    //     }
+    // }
+
     return (
         <div className="bg-primary container py-[20px] lg:py-[40px]">
             <div className="font-semibold text-white text-[20px] lg:text-[32px] mb-[20px] lg:mb-[32px]">Film Tranding
@@ -115,8 +81,8 @@ export const FilmTranding = () => {
                         <div className="modal-box bg-primary p-0 w-fit">
                             <PopUpCard img={e.img} tittle={e.tittle} />
                             <div className="flex justify-end items-center gap-2 lg:gap-4 mb-3 lg:mb-5 mx-3 lg:mx-6">
-                                {successMessage && <span className="text-green-500">{successMessage}</span>}
-                                <button className="btn text-white bg-slate-800 hover:bg-slate-900/80" onClick={() => handleAddToCart(e.id, e.tittle, e.badge, e.img)}>Masukan List</button>
+                                {localSuccessMessage && <span className="text-green-500">{localSuccessMessage}</span>}
+                                <button className="btn text-white bg-slate-800 hover:bg-slate-900/80" onClick={() => dispatch(addFilm({ id: e.id, tittle: e.tittle, badge: e.badge, img: e.img }))}>Masukan List</button>
                             </div>
                         </div>
                         <label className="modal-backdrop" htmlFor={`tranding_modal_${e.id}`}>Close</label>
@@ -131,9 +97,10 @@ export const FilmTranding = () => {
                     <CarouselContent className="m-0 flex justify-start gap-x-3 lg:gap-x-6">
 
                         {productsTranding.map((product, index) => (
-                            <CarouselItem key={index} className="p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
+                            <CarouselItem key={index} className="relative p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                 <label htmlFor={`tranding_modal_${product.id}`} className="">
-                                    <div className="cursor-pointer">
+                                    <div className="relative cursor-pointer group">
+                                        <div className="bg-gradient-to-t from-[#000] to-[#000]/0 cursor-pointer font-semibold text-lg lg:text-xl text-white text-center  absolute bottom-0 left-0 right-0 text px-2 lg:px-3 pb-4 lg:pb-6 pt-6 lg:pt-8 group-hover:z-50">{product.tittle}</div>
                                         <Card className="rounded-xl p-0 w-full border-none">
                                             <CardContent className="flex p-0 items-center justify-center">
                                                 <TopRatingCard className="" justify="end" children={<RenderBadge badgeName={product.badge} />} img={product.img} />

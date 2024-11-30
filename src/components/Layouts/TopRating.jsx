@@ -11,85 +11,24 @@ import TopRatingCard from "../Fragments/TopRatingCard"
 import { Card, CardContent } from "@/components/ui/card"
 import PopUpCard from "../Fragments/popUpCard"
 import { getTopRating } from "@/services/topFilm.services"
-import { useDispatch } from "react-redux"
-import { addFilm } from "@/stores/redux"
+import { useDispatch, useSelector } from "react-redux"
+import { addFilm, clearSuccessMessage } from "@/stores/redux"
 
 export const TopRating = () => {
-    // const productsRating = [
-    //     {
-    //         id: 1,
-    //         tittle: "Suzume",
-    //         badge: <BadgeBiru />,
-    //         img: "img/film/t1.png",
-    //     },
-    //     {
-    //         id: 2,
-    //         tittle: "Jurassic World",
-    //         badge: <BadgeBiru />,
-    //         img: "img/film/t2.png",
-    //     },
-    //     {
-    //         id: 3,
-    //         tittle: "Sonic 2",
-    //         badge: <BadgeBiru />,
-    //         img: "img/film/t3.png",
-    //     },
-    //     {
-    //         id: 4,
-    //         tittle: "All Of Us Are Dead",
-    //         badge: <BadgeBiru />,
-    //         img: "img/film/t4.png",
-    //     },
-    //     {
-    //         id: 5,
-    //         tittle: "Big Hero 6",
-    //         badge: <BadgeBiru />,
-    //         img: "img/film/t5.png",
-    //     },
-    //     {
-    //         id: 6,
-    //         tittle: "Suzume",
-    //         badge: <BadgeBiru />,
-    //         img: "img/film/t6.png",
-    //     },
-    //     {
-    //         id: 7,
-    //         tittle: "Jurassic World",
-    //         badge: <BadgeBiru />,
-    //         img: "img/film/t2.png",
-    //     },
-    //     {
-    //         id: 8,
-    //         tittle: "Sonic 2",
-    //         badge: <BadgeBiru />,
-    //         img: "img/film/t3.png",
-    //     }
-    // ]
+    const dispatch = useDispatch()
+    const reduxSuccessMessage = useSelector((state) => state.film.successMessage)
+    const [localSuccessMessage, setLocalSuccessMessage] = useState("");
 
-    // const [film, setFilm] = useState([])
-    // useEffect(() => {
-    //     const storedFilm = JSON.parse(localStorage.getItem('film')) || []
-    //     setFilm(storedFilm)
-    // }, [])
-
-    // const [successMessage, setSuccessMessage] = useState("")
-    // const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
-
-    //     const newFilmItem = {
-    //         id: productId,
-    //         tittle: productTittle,
-    //         badge: productBadge,
-    //         img: productImg,
-    //     };
-
-    //     if (!film.some((e) => e.id === productId)) {
-    //         const newFilm = [...film, newFilmItem]
-    //         setFilm(newFilm)
-    //         localStorage.setItem('film', JSON.stringify(newFilm))
-    //         setSuccessMessage("Berhasil disimpan ke Daftar Saya!")
-    //         setTimeout(() => setSuccessMessage(""), 3000)
-    //     }
-    // }
+    useEffect(() => {
+        if (reduxSuccessMessage) {
+            setLocalSuccessMessage(reduxSuccessMessage)
+            const timer = setTimeout(() => {
+                dispatch(clearSuccessMessage())
+                setLocalSuccessMessage("")
+            }, 3000)
+            return () => clearTimeout(timer)
+        }
+    }, [reduxSuccessMessage, dispatch])
 
     const badgeComponents = {
         BadgeBiru: <BadgeBiru />,
@@ -105,10 +44,30 @@ export const TopRating = () => {
         })
     }, [])
 
-    const dispatch = useDispatch()
+    // const [film, setFilm] = useState([])
+    // useEffect(() => {
+    //     const storedFilm = JSON.parse(localStorage.getItem('film')) || []
+    //     setFilm(storedFilm)
+    // }, [])
+
+    // const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
+    //     const newFilmItem = {
+    //         id: productId,
+    //         tittle: productTittle,
+    //         badge: productBadge,
+    //         img: productImg,
+    //     };
+
+    //     if (!film.some((e) => e.id === productId)) {
+    //         const newFilm = [...film, newFilmItem]
+    //         setFilm(newFilm)
+    //         localStorage.setItem('film', JSON.stringify(newFilm))
+    //     }
+    // }
 
     return (
         <div className="bg-primary container py-[20px] lg:py-[40px]">
+
             <div className="font-semibold text-white text-[20px] lg:text-[32px] mb-[20px] lg:mb-[32px]">Top Rating Film dan
                 Series Hari
                 ini
@@ -122,15 +81,14 @@ export const TopRating = () => {
                         <div className="modal-box bg-primary p-0 w-fit">
                             <PopUpCard img={e.img} tittle={e.tittle} />
                             <div className="flex justify-end items-center gap-2 lg:gap-4 mb-3 lg:mb-5 mx-3 lg:mx-6">
-                                {/* {successMessage && <span className="text-green-500">{successMessage}</span>} */}
+                                {localSuccessMessage && <span className="text-green-500">{localSuccessMessage}</span>}
                                 <button className="btn text-white bg-slate-800 hover:bg-slate-900/80" onClick={() => dispatch(addFilm({ id: e.id, tittle: e.tittle, badge: e.badge, img: e.img }))}>Masukan List</button>
                             </div>
                         </div>
                         <label className="modal-backdrop" htmlFor={`rating_modal_${e.id}`}>Close</label>
                     </div>
                 </div>
-            ))
-            }
+            ))}
 
             {/* Products Carousel Top Rating */}
             <div className="flex justify-center p-0 bg-primary">
@@ -143,7 +101,8 @@ export const TopRating = () => {
                         {productsRating.map((product, index) => (
                             <CarouselItem key={index} className="p-0 m-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
                                 <label htmlFor={`rating_modal_${product.id}`} className="">
-                                    <div className="cursor-pointer">
+                                    <div className="relative cursor-pointer group">
+                                        <div className="bg-gradient-to-t from-[#000] to-[#000]/0 cursor-pointer font-semibold text-lg lg:text-xl text-white text-center  absolute bottom-0 left-0 right-0 text px-2 lg:px-3 pb-4 lg:pb-6 pt-6 lg:pt-8 group-hover:z-50">{product.tittle}</div>
                                         <Card className="rounded-xl p-0 w-full border-none">
                                             <CardContent className="flex p-0 items-center justify-center">
                                                 <TopRatingCard className="" justify="start" children={<RenderBadge badgeName={product.badge} />} img={product.img} />
