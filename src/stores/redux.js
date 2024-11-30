@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const filmReducer = createSlice({
     name: "film",
     initialState: {
-        data: JSON.parse(localStorage.getItem("film")) || [], // Inisialisasi dengan localStorage
+        data: JSON.parse(localStorage.getItem("film")) || [],
+        successMessage: "",
     },
     reducers: {
         addFilm(state, action) {
@@ -18,16 +19,25 @@ const filmReducer = createSlice({
             if (!state.data.some((e) => e.id === action.payload.id)) {
                 const newFilm = [...state.data, newFilmItem];
                 state.data = newFilm;
-                localStorage.setItem("film", JSON.stringify(newFilm)); // Simpan ke localStorage
+                // state.data.push(action.payload);
+                localStorage.setItem("film", JSON.stringify(newFilm));
+                state.successMessage = "Berhasil disimpan ke Daftar Saya!";
+            } else {
+                state.filmAdded = "Film sudah ada di Daftar Saya!";
+                // const message = "Film sudah ada di daftar";
+                alert(state.filmAdded);
             }
         },
+        clearSuccessMessage: (state) => {
+            state.successMessage = ""
+        },
         deleteFilm(state, action) {
-            const updatedFilm = state.data.filter((_, index) => index !== action.payload);
+            const updatedFilm = state.data.filter((item) => item.id !== action.payload.id);
             state.data = updatedFilm;
-            localStorage.setItem("film", JSON.stringify(updatedFilm)); // Update localStorage
+            localStorage.setItem('film', JSON.stringify(updatedFilm));
         },
     },
 });
 
-export const { addFilm, deleteFilm } = filmReducer.actions;
+export const { addFilm, deleteFilm, clearSuccessMessage } = filmReducer.actions;
 export default filmReducer.reducer;

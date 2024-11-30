@@ -7,8 +7,11 @@ import {
     CarouselItem,
 } from "@/components/ui/carousel"
 import { Card, CardContent } from "@/components/ui/card"
+import { useDispatch } from "react-redux"
+import { deleteFilm } from "@/stores/redux"
 
 const List = () => {
+    const dispatch = useDispatch()
     const [film, setFilm] = useState([])
     const [filmToDelete, setFilmToDelete] = useState(null);
 
@@ -16,30 +19,6 @@ const List = () => {
         const storedFilm = JSON.parse(localStorage.getItem('film')) || []
         setFilm(storedFilm)
     }, [])
-
-    // const handleAddToCart = (productId, productTittle, productBadge, productImg) => {
-    //     const newFilmItem = {
-    //         id: productId,
-    //         tittle: productTittle,
-    //         badge: productBadge,
-    //         img: productImg,
-    //     };
-
-    //     if (!film.some((e) => e.id === productId)) {
-    //         const newFilm = [...film, newFilmItem]
-    //         setFilm(newFilm)
-    //         localStorage.setItem('film', JSON.stringify(newFilm))
-    //     }
-    // }
-
-    const handleDeleteFilm = () => {
-        if (filmToDelete) {
-            const updatedFilm = film.filter(item => item.id !== filmToDelete);
-            setFilm(updatedFilm);
-            localStorage.setItem('film', JSON.stringify(updatedFilm));
-            setFilmToDelete(null);
-        }
-    };
 
     const badgeComponents = {
         BadgeBiru: <BadgeBiru />,
@@ -78,6 +57,23 @@ const List = () => {
                                                 className="absolute bg-transparent w-full h-full top-0 text-red-500"
                                                 onClick={() => setFilmToDelete(item.id)}
                                             ></button>
+                                            {/* Modal Konfirmasi Hapus */}
+                                            {filmToDelete && (
+                                                <div className="modal modal-open !bg-transparent" role="dialog">
+                                                    <div className="modal-box bg-primary border border-slate-700">
+                                                        <h2 className="text-white">Konfirmasi Hapus</h2>
+                                                        <p className="text-white">Apakah Anda yakin ingin menghapus film ini?</p>
+                                                        <div className="flex justify-end mt-4">
+                                                            <button className="btn text-white bg-red-500 hover:bg-red-600" onClick={() => {
+                                                                dispatch(deleteFilm({ id: filmToDelete }))
+                                                                setFilmToDelete(null)
+                                                            }}>Hapus</button>
+                                                            <button className="btn text-white bg-slate-700 hover:bg-slate-800 ml-2" onClick={() => setFilmToDelete(null)}>Batal</button>
+                                                        </div>
+                                                    </div>
+                                                    <label className="modal-backdrop bg-primary/10" onClick={() => setFilmToDelete(null)}>Close</label>
+                                                </div>
+                                            )}
                                         </div>
                                     </CarouselItem>
                                 </Carousel>
@@ -90,20 +86,7 @@ const List = () => {
                 </div>
             </div >
 
-            {/* Modal Konfirmasi Hapus */}
-            {filmToDelete && (
-                <div className="modal modal-open" role="dialog">
-                    <div className="modal-box bg-primary">
-                        <h2 className="text-white">Konfirmasi Hapus</h2>
-                        <p className="text-white">Apakah Anda yakin ingin menghapus film ini?</p>
-                        <div className="flex justify-end mt-4">
-                            <button className="btn text-white bg-red-500 hover:bg-red-600" onClick={handleDeleteFilm}>Hapus</button>
-                            <button className="btn text-white bg-gray-500 hover:bg-gray-600 ml-2" onClick={() => setFilmToDelete(null)}>Batal</button>
-                        </div>
-                    </div>
-                    <label className="modal-backdrop" onClick={() => setFilmToDelete(null)}>Close</label>
-                </div>
-            )}
+
 
         </div >
 

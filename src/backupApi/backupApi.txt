@@ -69,7 +69,7 @@
     "filmId": "2"
   },
   {
-    "tittle": "ALl Of Us Are Dead",
+    "tittle": "All Of Us Are Dead",
     "badge": "BadgeBiru",
     "img": "img/film/t4.png",
     "id": "10",

@@ -1,51 +1,54 @@
-// misi FE Advance 2 STEP 4: Integrasi data API ke component React
-// api.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// Base URL for the API
-const API_URL = "https://674260ebe464749900907218.mockapi.io/film/2/propertyFilm";
+// URL API
+const BASE_URL = "https://67455856512ddbd807f79867.mockapi.io/film/2/propertyFilm";
 
-// Async Thunks for CRUD operations
-export const fetchFilms = createAsyncThunk("film/fetchFilms", async (_, { rejectWithValue }) => {
+// Thunks untuk operasi CRUD
+
+// Fetch data (GET)
+export const fetchFilms = createAsyncThunk("films/fetchFilms", async (_, { rejectWithValue }) => {
     try {
-        const response = await axios.get(API_URL);
+        const response = await axios.get(BASE_URL);
         return response.data;
     } catch (error) {
         return rejectWithValue(error.response.data);
     }
 });
 
-export const createFilm = createAsyncThunk("film/createFilm", async (newFilm, { rejectWithValue }) => {
+// Add new data (POST)
+export const addFilm = createAsyncThunk("films/addFilm", async (newFilm, { rejectWithValue }) => {
     try {
-        const response = await axios.post(API_URL, newFilm);
+        const response = await axios.post(BASE_URL, newFilm);
         return response.data;
     } catch (error) {
         return rejectWithValue(error.response.data);
     }
 });
 
-export const updateFilm = createAsyncThunk("film/updateFilm", async (updatedFilm, { rejectWithValue }) => {
+// Update data (PUT)
+export const updateFilm = createAsyncThunk("films/updateFilm", async ({ id, updatedFilm }, { rejectWithValue }) => {
     try {
-        const response = await axios.put(`${API_URL}/${updatedFilm.id}`, updatedFilm);
+        const response = await axios.put(`${BASE_URL}/${id}`, updatedFilm);
         return response.data;
     } catch (error) {
         return rejectWithValue(error.response.data);
     }
 });
 
-export const deleteFilm = createAsyncThunk("film/deleteFilm", async (id, { rejectWithValue }) => {
+// Delete data (DELETE)
+export const deleteFilm = createAsyncThunk("films/deleteFilm", async (id, { rejectWithValue }) => {
     try {
-        await axios.delete(`${API_URL}/${id}`);
-        return id;
+        await axios.delete(`${BASE_URL}/${id}`);
+        return id; // Kembalikan ID yang berhasil dihapus
     } catch (error) {
-        return rejectWithValue(error.response.data);
+        return rejectWithValue(error.response?.data || "Gagal menghapus data.");
     }
 });
 
-// Redux Slice
-const filmSlice = createSlice({
-    name: "film",
+// Slice untuk manajemen state
+const filmsSlice = createSlice({
+    name: "films",
     initialState: {
         films: [],
         loading: false,
@@ -53,8 +56,8 @@ const filmSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
+        // Fetch
         builder
-            // Fetch Films
             .addCase(fetchFilms.pending, (state) => {
                 state.loading = true;
                 state.error = null;
@@ -66,46 +69,39 @@ const filmSlice = createSlice({
             .addCase(fetchFilms.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-            })
-            // Create Film
-            .addCase(createFilm.pending, (state) => {
-                state.loading = true;
-            })
-            .addCase(createFilm.fulfilled, (state, action) => {
-                state.loading = false;
+            });
+
+        // Add
+        builder
+            .addCase(addFilm.fulfilled, (state, action) => {
                 state.films.push(action.payload);
             })
-            .addCase(createFilm.rejected, (state, action) => {
-                state.loading = false;
+            .addCase(addFilm.rejected, (state, action) => {
                 state.error = action.payload;
-            })
-            // Update Film
-            .addCase(updateFilm.pending, (state) => {
-                state.loading = true;
-            })
+            });
+
+        // Update
+        builder
             .addCase(updateFilm.fulfilled, (state, action) => {
-                state.loading = false;
-                state.films = state.films.map((film) =>
-                    film.id === action.payload.id ? action.payload : film
-                );
+                const index = state.films.findIndex((film) => film.id === action.payload.id);
+                if (index !== -1) {
+                    state.films[index] = action.payload;
+                }
             })
             .addCase(updateFilm.rejected, (state, action) => {
-                state.loading = false;
                 state.error = action.payload;
-            })
-            // Delete Film
-            .addCase(deleteFilm.pending, (state) => {
-                state.loading = true;
-            })
+            });
+
+        // Delete
+        builder
             .addCase(deleteFilm.fulfilled, (state, action) => {
-                state.loading = false;
                 state.films = state.films.filter((film) => film.id !== action.payload);
             })
             .addCase(deleteFilm.rejected, (state, action) => {
-                state.loading = false;
                 state.error = action.payload;
             });
     },
 });
 
-export default filmSlice.reducer;
+// Export actions dan reducer
+export const filmsReducer = filmsSlice.reducer;
