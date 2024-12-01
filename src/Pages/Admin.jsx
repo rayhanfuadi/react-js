@@ -28,7 +28,7 @@ const Admin = () => {
         getTopRating((data) => {
             setTableRows(data)
         })
-    }, [])
+    }, [tableRows])
 
     useEffect(() => {
         dispatch(fetchFilms());
@@ -119,9 +119,9 @@ const Admin = () => {
                     {/* Navbar Start */}
                     <Navbar />
                     <div className="container lg:container">
-                        <div className="grid gap-2">
+                        <div className="grid gap-2 lg:gap-4">
                             <div className="flex justify-between items-end">
-                                <p className="text-2xl font-semibold text-center text-white">Dashboard Admin</p>
+                                <p className="text-2xl font-semibold text-center text-white">Dashboard Admin (Top Rating Film)</p>
                                 <button className="btn bg-indigo-600 hover:bg-indigo-700 text-white" onClick={openAddModal}>Tambah Data</button>
                             </div>
 
