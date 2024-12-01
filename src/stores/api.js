@@ -1,10 +1,9 @@
+// Mengintegrasikan data API ke dalam tampilan komponen React
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// URL API
 const BASE_URL = "https://67455856512ddbd807f79867.mockapi.io/film/2/propertyFilm";
 
-// Thunks untuk operasi CRUD
 
 // Fetch data (GET)
 export const fetchFilms = createAsyncThunk("films/fetchFilms", async (_, { rejectWithValue }) => {
@@ -103,5 +102,4 @@ const filmsSlice = createSlice({
     },
 });
 
-// Export actions dan reducer
 export const filmsReducer = filmsSlice.reducer;

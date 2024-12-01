@@ -1,3 +1,4 @@
+// Implementais State Management menggunakn redux toolkit
 import { createSlice } from "@reduxjs/toolkit";
 
 const filmReducer = createSlice({
@@ -10,7 +11,7 @@ const filmReducer = createSlice({
         addFilm(state, action) {
             const newFilmItem = {
                 id: action.payload.id,
-                tittle: action.payload.title,
+                tittle: action.payload.tittle,
                 badge: action.payload.badge,
                 img: action.payload.img,
             };

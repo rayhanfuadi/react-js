@@ -30,7 +30,7 @@ const List = () => {
 
     return (
         <div className="">
-            <div className="p-5 lg:px-[80px] lg:py-[40px]">
+            <div className="bg-primary container py-[20px] lg:py-[40px]">
                 {/* List Film */}
                 <div className="">
                     <div className="flex justify-between">
@@ -42,9 +42,10 @@ const List = () => {
                             film.map((item) => (
                                 <Carousel key={item.id} className="basis-1/3 md:basis-1/4 lg:basis-1/5">
                                     <CarouselItem className="m-0 p-0 basis-1/3 md:basis-1/4 lg:basis-1/5">
-                                        <div className="cursor-pointer">
+                                        <div className="relative cursor-pointer group">
+                                            <div className="bg-gradient-to-t from-[#000] to-[#000]/0 cursor-pointer font-semibold text-sm lg:text-xl text-white text-center  absolute bottom-0 left-0 right-0 text px-2 lg:px-3 pb-4 lg:pb-6 pt-6 lg:pt-8 group-hover:z-50">{item.tittle}</div>
                                             <Card className="rounded-xl p-0 w-full border-none">
-                                                <CardContent className="flex p-0 items-center justify-center">
+                                                <CardContent className=" flex p-0 items-center justify-center">
                                                     <TopRatingCard
                                                         justify="start"
                                                         img={item.img}
@@ -61,8 +62,8 @@ const List = () => {
                                             {filmToDelete && (
                                                 <div className="modal modal-open !bg-transparent" role="dialog">
                                                     <div className="modal-box bg-primary border border-slate-700">
-                                                        <h2 className="text-white">Konfirmasi Hapus</h2>
-                                                        <p className="text-white">Apakah Anda yakin ingin menghapus film ini?</p>
+                                                        <h2 className="text-white mb-1 lg:mb-2 font-semibold">Konfirmasi Hapus</h2>
+                                                        <p className="text-white">Apakah Anda yakin ingin menghapus film ini dari Daftar Saya?</p>
                                                         <div className="flex justify-end mt-4">
                                                             <button className="btn text-white bg-red-500 hover:bg-red-600" onClick={() => {
                                                                 dispatch(deleteFilm({ id: filmToDelete }))
