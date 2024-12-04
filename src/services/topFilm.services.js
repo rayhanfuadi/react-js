@@ -1,5 +1,7 @@
 import axios from "axios";
 
+// https://67455856512ddbd807f79867.mockapi.io/film/2/propertyFilm
+
 export const getTopRating = (callback) => {
     axios.get("https://67455856512ddbd807f79867.mockapi.io/film/2/propertyFilm").then((res) => {
         callback(res.data)
