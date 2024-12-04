@@ -14,6 +14,7 @@ import { getTopRating } from "@/services/topFilm.services"
 import { useDispatch, useSelector } from "react-redux"
 import { addFilm, clearSuccessMessage } from "@/stores/redux"
 import BadgeMerah from "../Elements/Badges/BadgeMerah"
+// import { getFilms } from "../../../server/database.js"
 
 export const TopRating = () => {
     const dispatch = useDispatch()
@@ -56,7 +57,7 @@ export const TopRating = () => {
 
             {/* Pop Up Card */}
             {productsRating.map((e) => (
-                <div key={e.id}>
+                <div key={e.id_series_film}>
                     <input type="checkbox" id={`rating_modal_${e.id}`} className="modal-toggle" />
                     <div className="modal" role="dialog">
                         <div className="modal-box bg-primary p-0 w-fit">
