@@ -13,30 +13,10 @@ CREATE TABLE users (
 );
 
 INSERT INTO
-    users (
-        fullname,
-        username,
-        email,
-        password,
-        avatar,
-        tanggal_daftar
-    )
-VALUES (
-        'Rayhan Fuadi',
-        'ehan',
-        'ehan@gmail.com',
-        'ehan',
-        'img/avatar/default.png',
-        NOW()
-    ),
-    (
-        'ehan 2',
-        'ehan2',
-        'ehan2@gmail.com',
-        'ehan2',
-        'img/avatar/default.png',
-        NOW()
-    );
+    users (fullname, username, email, password, avatar, tanggal_daftar)
+VALUES
+    ('Rayhan Fuadi', 'ehan', 'ehan@gmail.com', 'ehan', 'img/avatar/default.png', NOW()),
+    ('ehan 2', 'ehan2', 'ehan2@gmail.com', 'ehan2', 'img/avatar/default.png', NOW());
 
 CREATE TABLE paket (
     id_paket INT AUTO_INCREMENT PRIMARY KEY,
@@ -48,30 +28,11 @@ CREATE TABLE paket (
 );
 
 INSERT INTO
-    Paket (
-        nama_paket,
-        harga,
-        durasi_langganan,
-        deskripsi
-    )
-VALUES (
-        'Basic',
-        50000,
-        30,
-        'Akses untuk satu perangkat dengan kualitas SD'
-    ),
-    (
-        'Standard',
-        100000,
-        30,
-        'Akses untuk dua perangkat dengan kualitas HD / 1080p'
-    ),
-    (
-        'Premium',
-        150000,
-        30,
-        'Akses untuk empat perangkat dengan kualitas 4K'
-    );
+    Paket (nama_paket, harga, durasi_langganan, deskripsi)
+VALUES 
+    ('Basic', 50000, 30, 'Akses untuk satu perangkat dengan kualitas SD'),
+    ('Standard', 100000, 30, 'Akses untuk dua perangkat dengan kualitas HD / 1080p'),
+    ('Premium', 150000, 30, 'Akses untuk empat perangkat dengan kualitas 4K');
 
 CREATE TABLE orders (
     id_order INT AUTO_INCREMENT PRIMARY KEY,
@@ -88,24 +49,10 @@ CREATE TABLE orders (
 );
 
 INSERT INTO
-    Orders (
-        id_user,
-        id_paket,
-        tanggal_order,
-        status_order
-    )
-VALUES (
-        1,
-        2,
-        '2024-12-01 10:00:00',
-        'active'
-    ),
-    (
-        2,
-        3,
-        '2024-12-02 11:30:00',
-        'pending'
-    );
+    Orders (id_user, id_paket, tanggal_order, status_order)
+VALUES 
+    (1, 2, '2024-12-01 10:00:00', 'active'),
+    (2, 3, '2024-12-02 11:30:00', 'pending');
 
 CREATE TABLE pembayaran (
     id_pembayaran INT AUTO_INCREMENT PRIMARY KEY,
@@ -122,24 +69,10 @@ CREATE TABLE pembayaran (
 );
 
 INSERT INTO
-    Pembayaran (
-        id_order,
-        metode_pembayaran,
-        status,
-        tanggal_pembayaran
-    )
-VALUES (
-        4,
-        'Credit Card',
-        'completed',
-        '2024-12-01 10:05:00'
-    ),
-    (
-        5,
-        'E-Wallet',
-        'pending',
-        NULL
-    );
+    Pembayaran (id_order, metode_pembayaran, status, tanggal_pembayaran)
+VALUES 
+    (4, 'Credit Card', 'completed', '2024-12-01 10:05:00'),
+    (5, 'E-Wallet', 'pending', NULL);
 
 CREATE TABLE genre (
     id_genre INT AUTO_INCREMENT PRIMARY KEY,
@@ -148,7 +81,8 @@ CREATE TABLE genre (
 
 INSERT INTO
     Genre (nama_genre)
-VALUES ('Action'),
+VALUES 
+    ('Action'),
     ('Drama'),
     ('Comedy'),
     ('Sci-Fi'),
@@ -169,36 +103,11 @@ CREATE TABLE series_film (
 );
 
 INSERT INTO
-    series_film (
-        tittle,
-        img,
-        badge,
-        rating,
-        total_episode,
-        sinopsis,
-        id_genre,
-        tahun_rilis
-    )
-VALUES (
-        'Suzume',
-        'img/film/t1.png',
-        'BadgeBiru',
-        '8.5',
-        '10',
-        'sinopsis 1',
-        1,
-        2019
-    ),
-    (
-        'Guardian Of Galaxy Vol III',
-        'img/film/t2.png',
-        'BadgeBiru',
-        '9.5',
-        '10',
-        'sinopsis 1',
-        2,
-        2023
-    );
+    series_film (tittle, img, badge, rating, total_episode, sinopsis, id_genre, tahun_rilis)
+VALUES 
+    ('Suzume', 'img/film/t1.png', 'BadgeBiru', '8.5', '10', 'sinopsis 1', 1, 2019),
+    ('Guardian Of Galaxy Vol III', 'img/film/t2.png', 'BadgeBiru', '9.5', '10', 'sinopsis 1', 2, 2023),
+    ('Sonic 2', 'img/film/t2.png', 'BadgeBiru', '9.5', '10', 'sinopsis 1', 2, 2023);
 
 CREATE TABLE episode_movie (
     id_episode_movie INT AUTO_INCREMENT PRIMARY KEY,
@@ -214,33 +123,10 @@ CREATE TABLE episode_movie (
 );
 
 INSERT INTO
-    episode_movie (
-        tittle,
-        img,
-        badge,
-        rating,
-        sinopsis,
-        id_series_film,
-        tanggal_rilis
-    )
-VALUES (
-        'Big Hero 6',
-        'img/film/t3.png',
-        'BadgeBiru',
-        '8.5',
-        'sinopsis 1',
-        1,
-        '2023-01-01'
-    ),
-    (
-        'All of Us Are Dead',
-        'img/film/t4.png',
-        'BadgeBiru',
-        '8.5',
-        'sinopsis 1',
-        2,
-        '2023-01-01'
-    );
+    episode_movie (tittle, img, badge, rating, sinopsis, id_series_film, tanggal_rilis)
+VALUES 
+    ('Big Hero 6', 'img/film/t3.png', 'BadgeBiru', '8.5', 'sinopsis 1', 1, '2023-01-01'),
+    ('All of Us Are Dead', 'img/film/t4.png', 'BadgeBiru', '8.5', 'sinopsis 1', 2, '2023-01-01');
 
 CREATE TABLE daftar_saya (
     id_daftar INT AUTO_INCREMENT PRIMARY KEY,
@@ -255,11 +141,7 @@ CREATE TABLE daftar_saya (
 );
 
 INSERT INTO
-    daftar_saya (
-        id_user,
-        id_episode_movie,
-        id_series_film,
-        tanggal_tambah
-    )
-VALUES (1, 3, 1, '2024-12-02'),
+    daftar_saya (id_user, id_episode_movie, id_series_film, tanggal_tambah)
+VALUES 
+    (1, 3, 1, '2024-12-02'),
     (2, 4, 2, '2024-12-02');
