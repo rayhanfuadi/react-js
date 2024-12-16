@@ -10,6 +10,42 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE
 }).promise()
 
+
+export const getUsers = async () => {
+    const [rows] = await pool.query("SELECT * FROM users")
+    return rows
+}
+
+export const getUsersId = async (id) => {
+    const [rows] = await pool.query(`
+        SELECT *
+        FROM users
+        WHERE id_user = ?`, [id])
+    return rows
+}
+
+export const addUsers = async (fullname, username, email, password, avatar) => {
+    const [result] = await pool.query(`
+        INSERT INTO users (fullname, username, email, password, avatar) 
+        VALUES (?, ?, ?, ?, ?)`, [fullname, username, email, password, avatar])
+    const id = result.insertId;
+    return getUsersId(id)
+}
+
+export const updateUsers = async (id, fullname, username, email, password) => {
+    const [rows] = await pool.query(`
+        UPDATE users 
+        SET id_user = ?, fullname = ?, username = ?, email = ?, password = ?
+        WHERE id_user = ?`, [id, fullname, username, email, password, id])
+    return rows;
+}
+
+export const deleteUsers = async (id) => {
+    const [rows] = await pool.query("DELETE FROM users WHERE id_user = ?", [id])
+    return rows
+}
+
+// ==================
 // get tabel series_film
 export const getFilms = async () => {
     const [rows] = await pool.query("SELECT * FROM series_film")
@@ -26,8 +62,8 @@ export const getFilmSeries = async (id) => {
 
     return rows
 }
+
 // add film to series_film
-// Jika valid, lakukan pembaruan
 export const addFilm = async (tittle, img, badge, rating, total_episode, sinopsis, tahun_rilis, id_genre) => {
     const [result] = await pool.query(`
         INSERT INTO series_film (tittle, img, badge, rating, total_episode, sinopsis, tahun_rilis, id_genre)
@@ -52,7 +88,47 @@ export const deleteFilm = async (id) => {
     return rows
 }
 
-// =========
+// =================================
+// get Movie
+export const getMovie = async () => {
+    const [rows] = await pool.query("select * from episode_movie")
+    return rows
+}
+
+// get Movie by id
+export const getMovieId = async (id) => {
+    const [rows] = await pool.query(`
+        select *
+        from episode_movie
+        where id_episode_movie = ?`, [id])
+    return rows
+}
+
+// add Movie
+export const addMovie = async (tittle, img, badge, rating, sinopsis, id_series_film) => {
+    const [result] = await pool.query(`
+        insert into episode_movie (tittle, img, badge, rating, sinopsis, id_series_film)
+        values (?, ?, ?, ?, ?, ?)`, [tittle, img, badge, rating, sinopsis, id_series_film])
+    const id = result.insertId
+    return getMovieId(id)
+}
+
+// update Movie
+export const updateMovie = async (id, tittle, img, badge, rating, sinopsis, id_series_film) => {
+    const [rows] = await pool.query(`
+        update episode_movie
+        set tittle = ?, img = ?, badge = ?, rating = ?, sinopsis = ?, id_series_film = ?
+        where id_episode_movie = ?`, [tittle, img, badge, rating, sinopsis, id_series_film, id])
+    return rows
+}
+
+// delete Movie
+export const deleteMovie = async (id) => {
+    const [rows] = await pool.query("delete from episode_movie where id_episode_movie = ?", [id])
+    return rows
+}
+
+// ================================
 // get tabel genre
 export const getGenre = async () => {
     const [rows] = await pool.query("SELECT * FROM genre")
@@ -72,8 +148,8 @@ export const getGenreId = async (id) => {
 // add film to genre
 export const addGenre = async (nama_genre) => {
     const [result] = await pool.query(`
-        INSERT INTO genre (nama_genre)
-        VALUES (?)`, [nama_genre])
+        INSERT INTO genre(nama_genre)
+        VALUES(?)`, [nama_genre])
     const id = result.insertId
     return getGenreId(id)
 }
@@ -84,7 +160,7 @@ export const updateGenre = async (id, nama_genre) => {
         UPDATE genre
         SET nama_genre = ?
         WHERE id_genre = ?
-        `, [nama_genre, id])
+            `, [nama_genre, id])
     return rows
 }
 

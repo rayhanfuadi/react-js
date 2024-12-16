@@ -1,10 +1,8 @@
 /* eslint-disable no-unused-vars */
 import express from 'express'
 import {
-    getFilms, getFilmSeries, addFilm, deleteFilm, updateFilm,
-    getGenre, getGenreId, updateGenre, deleteGenre, addGenre,
-    getUsers, getUsersId, updateUsers, addUsers, deleteUsers,
-    getMovie, getMovieId, addMovie, updateMovie, deleteMovie
+    getFilms, getFilmSeries, addFilm, deleteFilm, updateFilm, getGenre, getGenreId, updateGenre, deleteGenre, addGenre, getUsers, getUsersId,
+    updateUsers, addUsers, deleteUsers
 } from './database.js'
 
 const app = express()
@@ -15,6 +13,7 @@ app.get('/users', async (req, res) => {
     const users = await getUsers()
     res.send(users)
 })
+
 
 // get user by id
 app.get('/users/:id_user', async (req, res) => {
@@ -81,42 +80,6 @@ app.delete("/series_film/:id_series_film", async (req, res) => {
     res.status(204).send()
 })
 
-// ===============================
-// getMovie
-app.get('/movie', async (req, res) => {
-    const movie = await getMovie()
-    res.send(movie)
-})
-
-// getMovieByID
-app.get('/movie/:id_episode_movie', async (req, res) => {
-    const id = req.params.id_episode_movie
-    const movie = await getMovieId(id)
-    res.send(movie)
-})
-
-// addMovie
-app.post('/movie', async (req, res) => {
-    const { tittle, img, badge, rating, sinopsis, id_series_film } = req.body
-    const movie = await addMovie(tittle, img, badge, rating, sinopsis, id_series_film)
-    res.status(201).send(movie)
-})
-
-// updateMovie
-app.patch('/movie/:id_episode_movie', async (req, res) => {
-    const id = req.params.id_episode_movie
-    const { tittle, img, badge, rating, sinopsis, id_series_film } = req.body
-    const movie = await updateMovie(id, tittle, img, badge, rating, sinopsis, id_series_film)
-    res.status(200).send(movie)
-})
-
-// deleteMovie
-app.delete('/movie/:id_episode_movie', async (req, res) => {
-    const id = req.params.id_episode_movie
-    await deleteMovie(id)
-    res.status(204).send()
-})
-
 // ============================
 // getgenre
 app.get("/genre", async (req, res) => {
@@ -152,6 +115,14 @@ app.delete("/genre/:id_genre", async (req, res) => {
     await deleteGenre(id)
     res.status(204).send()
 })
+
+// app.delete("/series_film/:id_series_film", async (req, res) => {
+//     const id = req.params.id_series_film
+//     await deleteFilm(id)
+//     res.status(204).send()
+// })
+
+
 
 // error handler
 app.use((err, req, res, next) => {
