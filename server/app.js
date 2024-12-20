@@ -67,7 +67,7 @@ app.patch('/users/:id_user', async (req, res) => {
     res.send(user)
 })
 
-// add users
+// add userss
 app.post('/users', async (req, res) => {
     const { fullname, username, email, password, avatar } = req.body
     const user = await addUsers(fullname, username, email, password, avatar)
