@@ -118,7 +118,6 @@ CREATE TABLE episode_movie (
     sinopsis VARCHAR(255) NOT NULL,
     id_series_film INT NOT NULL,
     tanggal_rilis DATE,
-    created TIMESTAMP NOT NULL DEFAULT NOW(),
     FOREIGN KEY (id_series_film) REFERENCES series_film (id_series_film)
 );
 
