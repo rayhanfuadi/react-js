@@ -3,13 +3,12 @@ import mysql from "mysql2";
 import dotenv from "dotenv";
 dotenv.config();
 
-const pool = mysql.createPool({
+export const pool = mysql.createPool({
     host: process.env.MYSQL_HOST,
     user: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE
 }).promise()
-
 
 export const getUsers = async () => {
     const [rows] = await pool.query("SELECT * FROM users")
@@ -169,9 +168,3 @@ export const deleteGenre = async (id) => {
     const [rows] = await pool.query("DELETE FROM genre WHERE id_genre = ?", [id])
     return rows
 }
-
-
-
-// const shows = await getFilms()
-// const films = await addFilm('Guardian Of Galaxy vol III', 'img/film/t3.png', 'BadgeMerah', 'sinopsis 3', 2023)
-// console.log(shows)
