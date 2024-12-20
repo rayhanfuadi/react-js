@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import express from 'express'
 import {
     getFilms, getFilmSeries, addFilm, deleteFilm, updateFilm,
@@ -6,9 +7,53 @@ import {
     getUsers, getUsersId, updateUsers, addUsers, deleteUsers,
     getMovie, getMovieId, addMovie, updateMovie, deleteMovie
 } from './database.js'
+import dotenv from 'dotenv'
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import nodemailer from 'nodemailer'
+import multer from "multer"
+import path from 'path'
+import { authenticateToken } from './auth.js'
+import { pool } from './database.js'
 
+dotenv.config()
 const app = express()
+
 app.use(express.json())
+
+
+// Register
+app.post('/auth/register', async (req, res) => {
+    const { fullname, username, email, password, avatar } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await addUsers(fullname, username, email, hashedPassword, avatar, null, null);
+    res.status(201).send(user);
+});
+
+// Login
+app.post('/auth/login', async (req, res) => {
+    const { email, password } = req.body;
+    const user = (await getUsers()).find((u) => u.email === email);
+    if (!user) return res.status(404).send({ message: 'User not found' });
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) return res.status(401).send({ message: 'Invalid password' });
+
+    const token = jwt.sign({ id: user.id_user }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.send({ token, user });
+});
+
+// Contoh: Endpoint yang dilindungi
+app.get('/protected', authenticateToken, async (req, res) => {
+    res.send({ message: 'This is a protected route', user: req.user });
+});
+
+// Tambahkan ke endpoint lainnya jika perlu autentikasi
+// app.get('/series_film', authenticateToken, async (req, res) => {
+//     const films = await getFilms();
+//     res.send(films);
+// });
+
 
 // get users
 app.get('/users', async (req, res) => {
@@ -46,6 +91,52 @@ app.delete('/users/:id_user', async (req, res) => {
 })
 
 // =================================
+app.get('/series_film', authenticateToken, async (req, res) => {
+    try {
+        const { filter, sort, search } = req.query;
+
+        console.log('Query Params:', req.query);
+
+        // Base query
+        let query = "SELECT * FROM series_film";
+        const queryParams = [];
+
+        // Filtering
+        if (filter) {
+            query += " WHERE badge = ?";
+            queryParams.push(filter);
+        }
+
+        // Searching
+        if (search) {
+            if (filter) {
+                query += " AND"; // Jika ada filter sebelumnya, gunakan AND
+            } else {
+                query += " WHERE"; // Jika tidak ada filter sebelumnya, gunakan WHERE
+            }
+            query += " tittle LIKE ?";
+            queryParams.push(`%${search}%`);
+        }
+
+        // Sorting
+        if (sort) {
+            query += ` ORDER BY ${sort}`;
+        }
+
+        console.log('Final Query:', query);
+        console.log('Query Parameters:', queryParams);
+
+        // Execute query
+        const [rows] = await pool.query(query, queryParams);
+        res.send(rows);
+    } catch (err) {
+        console.error('Error Detail:', err);
+        res.status(500).send({ message: 'Server Error', error: err.message });
+    }
+});
+
+
+
 // getFIlm
 app.get("/series_film", async (req, res) => {
     const films = await getFilms()
@@ -152,6 +243,41 @@ app.delete("/genre/:id_genre", async (req, res) => {
     await deleteGenre(id)
     res.status(204).send()
 })
+
+// Send Email
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD
+    }
+});
+app.post('/send-email', async (req, res) => {
+    const { email, subject, text } = req.body;
+    const info = await transporter.sendMail({
+        from: process.env.EMAIL,
+        to: email,
+        subject,
+        text
+    });
+    res.send({ message: 'Email sent', info });
+});
+
+// upload image
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
+    }
+});
+
+const upload = multer({ storage });
+
+app.post('/upload', upload.single('image'), (req, res) => {
+    res.send({ message: 'Image uploaded', file: req.file });
+});
 
 // error handler
 app.use((err, req, res, next) => {
