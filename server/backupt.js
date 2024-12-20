@@ -18,7 +18,9 @@ import { pool } from './database.js'
 
 dotenv.config()
 const app = express()
+
 app.use(express.json())
+
 
 // Register
 app.post('/auth/register', async (req, res) => {
@@ -41,10 +43,12 @@ app.post('/auth/login', async (req, res) => {
     res.send({ token, user });
 });
 
-// Endpoint yang dilindungi
+// Contoh: Endpoint yang dilindungi
 app.get('/protected', authenticateToken, async (req, res) => {
     res.send({ message: 'This is a protected route', user: req.user });
 });
+
+
 
 // get users
 app.get('/users', async (req, res) => {
@@ -85,15 +89,19 @@ app.delete('/users/:id_user', async (req, res) => {
 app.get('/series_film', authenticateToken, async (req, res) => {
     try {
         const { filter, sort, search } = req.query;
+
         console.log('Query Params:', req.query);
+
         // Base query
         let query = "SELECT * FROM series_film";
         const queryParams = [];
+
         // Filtering
         if (filter) {
             query += " WHERE badge = ?";
             queryParams.push(filter);
         }
+
         // Searching
         if (search) {
             if (filter) {
@@ -104,12 +112,15 @@ app.get('/series_film', authenticateToken, async (req, res) => {
             query += " tittle LIKE ?";
             queryParams.push(`%${search}%`);
         }
+
         // Sorting
         if (sort) {
             query += ` ORDER BY ${sort}`;
         }
+
         console.log('Final Query:', query);
         console.log('Query Parameters:', queryParams);
+
         // Execute query
         const [rows] = await pool.query(query, queryParams);
         res.send(rows);
@@ -119,7 +130,9 @@ app.get('/series_film', authenticateToken, async (req, res) => {
     }
 });
 
-// getFilm
+
+
+// getFIlm
 app.get("/series_film", async (req, res) => {
     const films = await getFilms()
     res.send(films)
