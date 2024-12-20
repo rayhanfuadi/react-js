@@ -119,7 +119,7 @@ app.get('/series_film', authenticateToken, async (req, res) => {
     }
 });
 
-// getFIlm
+// getFilm
 app.get("/series_film", async (req, res) => {
     const films = await getFilms()
     res.send(films)
