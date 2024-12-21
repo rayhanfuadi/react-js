@@ -9,6 +9,7 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     avatar VARCHAR(255) NOT NULL,
+    token VARCHAR(255) DEFAULT NULL,
     tanggal_daftar DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
