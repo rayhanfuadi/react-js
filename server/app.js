@@ -13,8 +13,10 @@ import jwt from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 import multer from "multer"
 import path from 'path'
-import { authenticateToken } from './auth.js'
+import { authMiddleware } from './auth.js'
 import { pool } from './database.js'
+import { v4 as uuidv4 } from 'uuid'
+import { upload } from './uploadService.js'
 
 dotenv.config()
 const app = express()
@@ -22,10 +24,29 @@ app.use(express.json())
 
 // Register
 app.post('/auth/register', async (req, res) => {
-    const { fullname, username, email, password, avatar } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await addUsers(fullname, username, email, hashedPassword, avatar, null, null);
-    res.status(201).send(user);
+    try {
+        const { fullname, username, email, password, avatar } = req.body;
+
+        // Hash password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Generate unique verification token
+        const verificationToken = uuidv4();
+
+        // Simpan data user ke database
+        const user = await addUsers(fullname, username, email, hashedPassword, avatar);
+
+        // Update token ke user
+        await pool.query('UPDATE users SET token = ? WHERE id_user = ?', [verificationToken, user[0].id_user]);
+
+        // Kirim email verifikasi
+        await sendVerificationEmail(email, verificationToken);
+
+        res.status(201).send({ message: 'User registered successfully. Please check your email for verification.' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: 'Registration failed', error: err.message });
+    }
 });
 
 // Login
@@ -42,9 +63,10 @@ app.post('/auth/login', async (req, res) => {
 });
 
 // Endpoint yang dilindungi
-app.get('/protected', authenticateToken, async (req, res) => {
+app.get('/protected', authMiddleware, async (req, res) => {
     res.send({ message: 'This is a protected route', user: req.user });
 });
+
 
 // get users
 app.get('/users', async (req, res) => {
@@ -67,7 +89,7 @@ app.patch('/users/:id_user', async (req, res) => {
     res.send(user)
 })
 
-// add users
+// add userss
 app.post('/users', async (req, res) => {
     const { fullname, username, email, password, avatar } = req.body
     const user = await addUsers(fullname, username, email, password, avatar)
@@ -82,7 +104,7 @@ app.delete('/users/:id_user', async (req, res) => {
 })
 
 // =================================
-app.get('/series_film', authenticateToken, async (req, res) => {
+app.get('/series_film', authMiddleware, async (req, res) => {
     try {
         const { filter, sort, search } = req.query;
         console.log('Query Params:', req.query);
@@ -231,34 +253,66 @@ const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASSWORD
-    }
+        pass: process.env.EMAIL_PASSWORD,
+    },
 });
-app.post('/send-email', async (req, res) => {
-    const { email, subject, text } = req.body;
-    const info = await transporter.sendMail({
+
+const sendVerificationEmail = async (email, token) => {
+    const verificationLink = `${process.env.BASE_URL}/verifikasi-email?token=${token}`;
+    const mailOptions = {
         from: process.env.EMAIL,
         to: email,
-        subject,
-        text
-    });
-    res.send({ message: 'Email sent', info });
-});
+        subject: 'Verify Your Email - Chill Movie',
+        text: `Click the link below to verify your email:\n\n${verificationLink}`,
+    };
 
-// upload image
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`);
+    await transporter.sendMail(mailOptions);
+};
+
+app.get('/verifikasi-email', async (req, res) => {
+    try {
+        const { token } = req.query;
+
+        if (!token) {
+            return res.status(400).send({ message: 'Verification token is required' });
+        }
+
+        // Cek apakah token ada di database
+        const [rows] = await pool.query('SELECT * FROM users WHERE token = ?', [token]);
+        if (rows.length === 0) {
+            return res.status(400).send({ message: 'Invalid Verification Token' });
+        }
+
+        // Hapus token setelah verifikasi berhasil
+        // await pool.query('UPDATE users SET token = NULL WHERE token = ?', [token]);
+
+        res.send({ message: 'Email Verified Successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send({ message: 'Verification failed', error: err.message });
     }
 });
 
-const upload = multer({ storage });
 
+// upload image
 app.post('/upload', upload.single('image'), (req, res) => {
-    res.send({ message: 'Image uploaded', file: req.file });
+    try {
+        // Jika upload berhasil
+        res.status(201).send({
+            message: 'File uploaded successfully',
+            file: {
+                filename: req.file.filename,
+                path: req.file.path,
+                size: req.file.size,
+            },
+        });
+    } catch (err) {
+        // Jika terjadi error
+        res.status(400).send({
+            message: 'File upload failed',
+            error: err.message,
+        });
+    }
 });
 
 // error handler

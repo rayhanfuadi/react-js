@@ -3,7 +3,7 @@
 import jwt from 'jsonwebtoken';
 
 // Middleware untuk memeriksa token
-export const authenticateToken = (req, res, next) => {
+export const authMiddleware = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     // Cek apakah header Authorization ada
